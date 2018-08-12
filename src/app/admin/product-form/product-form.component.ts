@@ -3,7 +3,7 @@ import { ManageDataService } from '../shared/services/manage-data.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../shared/models/product';
 import { HelperValidators } from '../../shared/helper-validators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -16,8 +16,11 @@ export class ProductFormComponent implements OnInit {
   caterories$;
   form: FormGroup;
   canReset = true;
+  isUpdate = false;
+  uid = null;
   constructor(private manageDataService: ManageDataService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
     this.caterories$ = this.manageDataService.getCategoryProduct();
     this.manageDataService.getCategoryProduct().subscribe(val => {
       console.log(val); }
@@ -32,9 +35,9 @@ export class ProductFormComponent implements OnInit {
   getProductUid() {
     this.route.paramMap
       .pipe(switchMap(param => {
-        const uid = param.get('uid');
-        if (uid) {
-          return this.manageDataService.getProduct(uid);
+        this.uid = param.get('uid');
+        if (this.uid) {
+          return this.manageDataService.getProduct(this.uid);
         }
         return of(null);
       }), filter(val => val))
@@ -42,6 +45,7 @@ export class ProductFormComponent implements OnInit {
       .subscribe(data => {
         this.patchForm(data);
         this.canReset = false;
+        this.isUpdate = true;
       });
   }
 
@@ -80,8 +84,22 @@ export class ProductFormComponent implements OnInit {
   saveProduct(form: FormGroup) {
     if (form.valid) {
       console.log(form.value);
-      this.manageDataService.createProduct((form.value as Product));
+      this.isSelectetSave(this.uid, form.value);
     }
+  }
+
+  isSelectetSave(isUpdate, product) {
+    if (isUpdate) {
+      this.manageDataService.updateProduct(this.uid, product)
+        .then(res => {
+          this.router.navigate(['admin/products']);
+        });
+      return;
+    }
+    this.manageDataService.createProduct(product)
+      .then(res => {
+        this.router.navigate(['admin/products']);
+      });
   }
 
   reset() {

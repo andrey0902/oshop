@@ -27,4 +27,8 @@ export class ManageDataService {
   getProduct(uid) {
     return this.db.object(`/products/${uid}`).valueChanges();
   }
+
+  updateProduct(uid, product) {
+    return this.db.object(`/products/${uid}`).update(product);
+  }
 }
