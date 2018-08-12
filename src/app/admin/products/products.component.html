@@ -1,3 +1,26 @@
 <p>
-  products works!
+  <a routerLink="/admin/product/new" class="btn btn-primary">add new product</a>
 </p>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Edit</th>
+  </tr>
+  </thead>
+
+
+    <tbody>
+    <tr *ngFor="let product of products$ ">
+      <td>{{product.title}}</td>
+      <td>{{product.price | currency:'USD':true}}</td>
+      <td>
+        <a [routerLink]="['/admin/product/', product.key]" class="btn btn-link">Edit</a>
+      </td>
+    </tr>
+    </tbody>
+
+
+</table>

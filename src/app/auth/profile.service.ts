@@ -3,14 +3,24 @@ import * as firebase from 'firebase';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
+import { User } from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
   private _user$ = new BehaviorSubject<firebase.User | null>(null);
+  private objectUser$ = new BehaviorSubject<User | null>(null);
 
   constructor(private db: AngularFireDatabase) { }
+
+  getObjectUser(): Observable<User> {
+    return this.objectUser$.asObservable();
+  }
+
+  setObjectUser(user: User) {
+    this.objectUser$.next(user);
+  }
 
   getUser(): Observable<firebase.User> {
    return this._user$.asObservable();
@@ -29,7 +39,7 @@ export class ProfileService {
       });
   }
 
-  getFBUser(uid: string): AngularFireObject<{}> {
-    return this.db.object(`/users${uid}`);
+  getFBUser(uid: string): AngularFireObject<User> {
+    return this.db.object(`/users/${uid}`);
   }
 }

@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <form [formGroup]="form" (ngSubmit)="saveProduct(form)">
+
+        <div class="form-group">
+          <label for="title">Enter Title</label>
+          <app-input class="input-group">
+            <!--<span class=" left_ico">$</span>-->
+            <input type="text" appValidation formControlName="title" class="input-field" id="title" >
+            <!--<span class="right_ico">some text</span>-->
+            <app-input-error>
+              <!--<p class="min-error">Min length is OK!!!!)))))</p>-->
+              <!--<p class="max-error">Max length is OK!!!!)))))</p>-->
+              <!--<p class="required-error">This text is rewrite default error is required</p>-->
+            </app-input-error>
+          </app-input>
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+
+          <app-input class="input-group">
+            <span class=" left_ico">$</span>
+            <input appValidation type="number" formControlName="price" class="input-field" id="price">
+            <app-input-error>
+              <p class="isNegative-error">This field is not have negative or 0 value</p>
+            </app-input-error>
+          </app-input>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+
+          <app-input class="input-group">
+
+            <select appValidation class="input-field" id="category" formControlName="categories">
+              <option value="" readonly disabled></option>
+              <option *ngFor="let c of caterories$ | async " [value]="c.key">
+                {{c.name}}
+              </option>
+            </select>
+            <app-input-error>
+            </app-input-error>
+          </app-input>
+        </div>
+        <div class="form-group">
+          <label for="image-url">Image Url</label>
+
+          <app-input class="input-group">
+            <input appValidation type="url" class="input-field" formControlName="imageUrl" id="image-url">
+            <app-input-error>
+            </app-input-error>
+          </app-input>
+        </div>
+        <!--<div class="form-group form-check">-->
+        <!--<input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+        <!--<label class="form-check-label" for="exampleCheck1">Check me out</label>-->
+        <!--</div>-->
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="form.invalid"
+        >Save</button>
+        <button *ngIf="canReset" type="button" (click)="reset()" class="btn btn-danger btn-reset">Reset</button>
+      </form>
+    </div>
+    <div class="col-12 col-md-6 ">
+      <app-card class="pre-card" [product]="form.value" [validImage]="isValidLink()"></app-card>
+    </div>
+  </div>
+</div>
+

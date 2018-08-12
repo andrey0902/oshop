@@ -1,0 +1,9 @@
+.pre-card {
+  display: block;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.btn-reset {
+  margin-left: 15px;
+}

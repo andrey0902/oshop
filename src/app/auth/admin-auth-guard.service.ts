@@ -17,16 +17,12 @@ export class AdminAuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.profil.getUser()
       .pipe(switchMap((user) => {
-        // if (user && user.isAdmin) {
-        //   return true;
-        // }
-        //
-        // this.router.navigate(['/login'], {
-        //   queryParams: {
-        //     returnUrl: state.url
-        //   }
-        // });
-        // return false;
+
+        return this.profil.getFBUser(user.uid).valueChanges()
+          .pipe(map((val => {
+                return val.isAdmin;
+              })
+          ));
       }));
   }
 }

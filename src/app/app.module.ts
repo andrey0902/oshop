@@ -19,6 +19,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AdminProductsComponent} from './admin/products/admin-products.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AuthModule} from './auth/auth.module';
+import { AdminModule } from './admin/admin.module';
+import { CardComponent } from './shared/card/card.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import {AuthModule} from './auth/auth.module';
     AppRoutingModule,
     NgbModule.forRoot(),
     AuthModule,
+    AdminModule,
 
   ],
   providers: [],

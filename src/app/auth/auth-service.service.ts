@@ -3,10 +3,11 @@ import * as fireBase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {ProfileService} from './profile.service';
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from './session.service';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { User } from '../shared/models/user';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,18 +18,40 @@ export class AuthService {
               private profile: ProfileService,
               private router: Router,
               private route: ActivatedRoute) {
-    afAuth.authState.
-      pipe(takeUntil(this.onDestroy$))
-      .subscribe(value => {
-        if (value) {
-          this.router.navigate([SessionService.getReturnUrl()]);
-          this.profile.saveUser(value);
-        }
-        // used for if the user state change we need update header and hide or show button menu
-        this.profile.setUser(value);
-    });
 
-    this.getReturnUrl();
+    this.checkChangeUser();
+    this.setReturnUrl();
+  }
+
+  checkChangeUser() {
+    this.afAuth.authState.
+      pipe(takeUntil(this.onDestroy$))
+        .subscribe(user => {
+          if (user) {
+            // redirect after login
+            console.log('getReturnUrl', SessionService.getReturnUrl());
+            this.router.navigate([SessionService.getReturnUrl()]);
+            // user from register save in db firebase
+            this.profile.saveUser(user);
+          }
+          // used for if the user state change we need update header and hide or show button menu
+          this.setObjectUser(user);
+          // user from register
+          this.profile.setUser(user);
+        });
+  }
+
+
+  setObjectUser(user: fireBase.User) {
+    if (user) {
+      this.profile.getFBUser(user.uid)
+        .valueChanges()
+        .subscribe(objUser => {
+          this.profile.setObjectUser(objUser);
+        });
+      return;
+    }
+    this.profile.setObjectUser(null);
   }
 
   loginG() {
@@ -41,9 +64,10 @@ export class AuthService {
    return this.afAuth.auth.signOut().then(value => this.router.navigate(['/login']));
   }
 
-  public getReturnUrl() {
-   const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-    SessionService.setReturnUrl(returnUrl || '/');
+  public setReturnUrl() {
+   this.route.queryParamMap.subscribe(params => {
+     SessionService.setReturnUrl(params.get('returnUrl') || '/');
+   });
   }
 
 }

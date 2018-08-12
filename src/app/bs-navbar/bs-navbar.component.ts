@@ -4,6 +4,7 @@ import {ProfileService} from '../auth/profile.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import * as firebase from 'firebase';
+import { User } from '../shared/models/user';
 
 @Component({
   selector: 'app-bs-navbar',
@@ -12,7 +13,7 @@ import * as firebase from 'firebase';
 })
 export class BsNavbarComponent implements OnInit, OnDestroy {
   onDestroy = new Subject();
-  user: firebase.User;
+  user: User;
   constructor(private authService: AuthService,
               private profile: ProfileService) { }
 
@@ -25,7 +26,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   }
 
   getUser() {
-    this.profile.getUser()
+    this.profile.getObjectUser()
       .pipe(takeUntil(this.onDestroy))
       .subscribe(value => {
         this.user = value;

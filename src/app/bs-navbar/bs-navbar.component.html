@@ -18,10 +18,10 @@
         <ng-template #ononymousUser>
           <li>
             <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ user?.displayName}}</button>
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ user?.name}}</button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button routerLink="/my/orders" class="dropdown-item">My orders</button>
-                <ng-container *ngIf="true">
+                <ng-container *ngIf="user?.isAdmin">
                   <button routerLink="/admin/orders" class="dropdown-item">Manage orders</button>
                   <button routerLink="/admin/products" class="dropdown-item">Manage products</button>
                 </ng-container>
