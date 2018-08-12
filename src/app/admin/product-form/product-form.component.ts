@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../shared/models/product';
 import { HelperValidators } from '../../shared/helper-validators';
 import { ActivatedRoute } from '@angular/router';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
@@ -38,6 +38,7 @@ export class ProductFormComponent implements OnInit {
         }
         return of(null);
       }), filter(val => val))
+      .pipe(take(1))
       .subscribe(data => {
         this.patchForm(data);
         this.canReset = false;
