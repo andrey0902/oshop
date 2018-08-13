@@ -21,8 +21,9 @@ import {AuthModule} from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import 'hammerjs';
 import { ManageDataService } from './shared/services/manage-data.service';
-import { MatButtonModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatListModule } from '@angular/material';
 import { CardProductComponent } from './card-product/card-product.component';
+import { ListCategoriesComponent } from './list-categories/list-categories.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CardProductComponent } from './card-product/card-product.component';
     AdminOrdersComponent,
     LoginComponent,
     CardProductComponent,
+    ListCategoriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import { CardProductComponent } from './card-product/card-product.component';
     AdminModule,
     MatCardModule,
     MatButtonModule,
-
+    MatListModule,
   ],
   providers: [
     NgbActiveModal,

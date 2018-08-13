@@ -1,13 +1,17 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-4">
-      menu
+    <div class="col-12 col-md-3">
+      <app-list-categories [categories$]="categories$" [isChoose]="category"></app-list-categories>
     </div>
-    <div class="col-12 col-md-8 ">
+    <div class="col-12 col-md-9 ">
       <div class="row">
-        <div class="col-12 col-md-6" *ngFor="let product of products$ | async">
-          <app-card-product [product]="product"></app-card-product>
-        </div>
+        <ng-container *ngFor="let product of filterProduct; let i = index;">
+          <div class="col" >
+            <app-card-product [product]="product"></app-card-product>
+          </div>
+          <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
+        </ng-container>
+
       </div>
     </div>
   </div>

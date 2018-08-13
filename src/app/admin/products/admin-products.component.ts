@@ -31,9 +31,8 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 
   filter(e) {
-
     this.filterProducts = e
-      ? this.manageDataService.filterByTitle(e, this.products)
+      ? this.manageDataService.filterBy(e, this.products)
       : this.products;
   }
 

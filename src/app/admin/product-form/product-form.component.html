@@ -35,7 +35,7 @@
 
             <select appValidation class="input-field" id="category" formControlName="category">
               <option value="" readonly disabled></option>
-              <option *ngFor="let c of caterories$ | async " [value]="c.key">
+              <option *ngFor="let c of caterories$ | async" [value]="c.key">
                 {{c.name}}
               </option>
             </select>
@@ -69,3 +69,4 @@
     </div>
   </div>
 </div>
+

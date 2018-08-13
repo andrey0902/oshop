@@ -1,0 +1,13 @@
+<mat-list role="list" class="list-cat">
+  <mat-list-item
+
+    *ngFor="let cat of categories$ | async"
+    class="item-cat"
+    role="listitem"
+    (click)="selected(cat.key)"
+    [class.selected]="cat.key === isSelect"
+  >{{cat.name}}
+    <!--<button class="button-cat" mat-raised-button [color]="cat.key === isSelect? 'primary' :'default'">{{cat.name}}</button>-->
+
+  </mat-list-item>
+</mat-list>

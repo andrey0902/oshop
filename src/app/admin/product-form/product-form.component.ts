@@ -23,10 +23,7 @@ export class ProductFormComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private modalService: NgbModal) {
-    this.caterories$ = this.manageDataService.getCategoryProduct();
-    this.manageDataService.getCategoryProduct().subscribe(val => {
-      console.log(val); }
-      );
+    this.caterories$  = this.manageDataService.getCategoryProduct();
   }
 
   ngOnInit() {
@@ -55,7 +52,7 @@ export class ProductFormComponent implements OnInit {
     this.form.patchValue({
       title: data.title,
       price: data.price,
-      categories: data.categories,
+      category: data.category,
       imageUrl: data.imageUrl,
     });
   }
@@ -86,11 +83,11 @@ export class ProductFormComponent implements OnInit {
   saveProduct(form: FormGroup) {
     if (form.valid) {
       console.log(form.value);
-      this.isSelectetSave(this.uid, form.value);
+      this.isSelectedSave(this.uid, form.value);
     }
   }
 
-  isSelectetSave(isUpdate, product) {
+  isSelectedSave(isUpdate, product) {
     if (isUpdate) {
       this.manageDataService.updateProduct(this.uid, product)
         .then(res => {

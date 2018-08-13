@@ -3,8 +3,8 @@
   <div class="card-body">
     <h5 class="card-title">Title:
       {{product.title || '-' }}</h5>
-    <p class="card-text">Price: <span>{{ product.price ? (product.price | currency:'USD':true)  : '-'}}</span></p>
-    <p class="card-text">Category: <span class="cat">{{product.categories || '-'}}</span></p>
+    <p class="card-text">Price: <span>{{ product.price ? (product.price | currency)  : '-'}}</span></p>
+    <p class="card-text">Category: <span class="cat">{{product.category || '-'}}</span></p>
   </div>
 </div>
 

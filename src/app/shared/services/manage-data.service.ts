@@ -12,7 +12,11 @@ export class ManageDataService {
   constructor(private db: AngularFireDatabase) { }
 
   getCategoryProduct(): Observable<any> {
-    return this.db.list('/categories', ref => ref.orderByChild('name')).valueChanges();
+    return this.db.list('/categories', ref => ref.orderByChild('name'))
+      .snapshotChanges()
+      .pipe(map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      ));
   }
 
   createProduct(product: Product) {
@@ -20,7 +24,7 @@ export class ManageDataService {
        .push(product);
   }
 
-  getAllProducts() {
+  getAllProducts(): Observable<any[]> {
     return this.db.list('/products')
       .snapshotChanges()
       .pipe(map(changes =>
@@ -40,9 +44,10 @@ export class ManageDataService {
     return this.db.object(`/products/${uid}`).remove();
   }
 
-  filterByTitle(search: string, products: any[]) {
+  filterBy(search: string, products: any[], fieldName = 'title') {
+    console.log(search, products, fieldName);
     return products.filter(p => {
-      return p.title.toLowerCase().includes(search.toLowerCase());
+      return p[fieldName].toLowerCase().includes(search.toLowerCase());
     });
   }
 }
