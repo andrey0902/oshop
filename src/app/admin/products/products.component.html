@@ -1,26 +1,60 @@
-<p>
-  <a routerLink="/admin/product/new" class="btn btn-primary">add new product</a>
-</p>
 
-<table class="table">
-  <thead>
-  <tr>
-    <th>Title</th>
-    <th>Price</th>
-    <th>Edit</th>
-  </tr>
-  </thead>
+<!--<table class="table">-->
+  <!--<thead>-->
+  <!--<tr>-->
+    <!--<th>Title</th>-->
+    <!--<th>Price</th>-->
+    <!--<th>Edit</th>-->
+  <!--</tr>-->
+  <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr *ngFor="let product of filterProducts ">-->
+      <!--<td>{{product.title}}</td>-->
+      <!--<td>{{product.price | currency:'USD':true}}</td>-->
+      <!--<td>-->
+        <!--<a [routerLink]="['/admin/product/', product.key]" class="btn btn-link">Edit</a>-->
+      <!--</td>-->
+    <!--</tr>-->
+    <!--</tbody>-->
+<!--</table>-->
 
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <p>
+        <a routerLink="/admin/product/new" class="btn btn-primary">add new product</a>
+      </p>
+      <p>
+        <app-search class="search" (changeSearch)="filter($event)"></app-search>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <ngx-datatable class="material"
+        [count]="filterProducts.length"
+        [loadingIndicator]="!filterProducts"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [limit]="5"
+        [rows]="filterProducts"
+        >
+        <ngx-datatable-column [name]="'Title'" [prop]="'title'" [width]="'auto'"></ngx-datatable-column>
+        <ngx-datatable-column [name]="'Price'" [prop]="'price'"  [width]="'auto'">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value | currency:'USD':true}}
+          </ng-template>
+        </ngx-datatable-column>
 
-    <tbody>
-    <tr *ngFor="let product of products$ ">
-      <td>{{product.title}}</td>
-      <td>{{product.price | currency:'USD':true}}</td>
-      <td>
-        <a [routerLink]="['/admin/product/', product.key]" class="btn btn-link">Edit</a>
-      </td>
-    </tr>
-    </tbody>
+        <ngx-datatable-column [name]="'Edit'" [prop]="'key'">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <a [routerLink]="['/admin/product/', value]" class="btn btn-link">Edit</a>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>
 
-
-</table>

@@ -1,0 +1,18 @@
+<mat-card class="card-product">
+  <mat-card-header>
+    <div mat-card-avatar >
+      <img class="header-image" mat-card-image [src]="product.imageUrl" alt="Product img">
+    </div>
+    <mat-card-title>{{product.title}}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image [src]="product.imageUrl" alt="Product img">
+  <mat-card-content>
+    <p>
+      <span>Price: {{product.price | currency}}</span>
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>

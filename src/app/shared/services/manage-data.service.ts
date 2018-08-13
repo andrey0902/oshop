@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
-import { Product } from '../../../shared/models/product';
+import { Product } from '../models/product';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,10 @@ export class ManageDataService {
 
   getAllProducts() {
     return this.db.list('/products')
-      .snapshotChanges();
+      .snapshotChanges()
+      .pipe(map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      ));
   }
 
   getProduct(uid) {
@@ -30,5 +34,15 @@ export class ManageDataService {
 
   updateProduct(uid, product) {
     return this.db.object(`/products/${uid}`).update(product);
+  }
+
+  deleteProduct(uid) {
+    return this.db.object(`/products/${uid}`).remove();
+  }
+
+  filterByTitle(search: string, products: any[]) {
+    return products.filter(p => {
+      return p.title.toLowerCase().includes(search.toLowerCase());
+    });
   }
 }

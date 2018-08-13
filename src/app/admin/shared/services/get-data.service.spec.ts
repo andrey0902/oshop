@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ManageDataService } from './manage-data.service';
+import { ManageDataService } from '../../../shared/services/manage-data.service';
 
 describe('GetDataService', () => {
   beforeEach(() => {

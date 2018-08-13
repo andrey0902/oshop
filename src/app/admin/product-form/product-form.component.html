@@ -33,7 +33,7 @@
 
           <app-input class="input-group">
 
-            <select appValidation class="input-field" id="category" formControlName="categories">
+            <select appValidation class="input-field" id="category" formControlName="category">
               <option value="" readonly disabled></option>
               <option *ngFor="let c of caterories$ | async " [value]="c.key">
                 {{c.name}}
@@ -61,6 +61,7 @@
                 [disabled]="form.invalid"
         >Save</button>
         <button *ngIf="canReset" type="button" (click)="reset()" class="btn btn-danger btn-reset">Reset</button>
+        <button *ngIf="uid" type="button" (click)="openConfirm()" class="btn btn-danger btn-reset">Delete</button>
       </form>
     </div>
     <div class="col-12 col-md-6 ">
@@ -68,4 +69,3 @@
     </div>
   </div>
 </div>
-

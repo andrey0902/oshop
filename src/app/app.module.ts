@@ -16,11 +16,13 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminOrdersComponent } from './admin/orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
 import {AppRoutingModule} from './app-routing.module';
-import {AdminProductsComponent} from './admin/products/admin-products.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {AuthModule} from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
-import { CardComponent } from './shared/card/card.component';
+import 'hammerjs';
+import { ManageDataService } from './shared/services/manage-data.service';
+import { MatButtonModule, MatCardModule } from '@angular/material';
+import { CardProductComponent } from './card-product/card-product.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +35,8 @@ import { CardComponent } from './shared/card/card.component';
     OrderSuccesComponent,
     MyOrdersComponent,
     AdminOrdersComponent,
-    AdminProductsComponent,
     LoginComponent,
+    CardProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,9 +47,14 @@ import { CardComponent } from './shared/card/card.component';
     NgbModule.forRoot(),
     AuthModule,
     AdminModule,
+    MatCardModule,
+    MatButtonModule,
 
   ],
-  providers: [],
+  providers: [
+    NgbActiveModal,
+    ManageDataService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

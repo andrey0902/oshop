@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ManageDataService } from './manage-data.service';
+import { ManageDataService } from '../../../shared/services/manage-data.service';
 
 @Injectable()
 export class ResolveDataService implements Resolve<any> {

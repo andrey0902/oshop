@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {ProductsComponent} from './products/products.component';
@@ -13,7 +12,6 @@ import {MyOrdersComponent} from './my-orders/my-orders.component';
 import { AuthGuard } from './auth/auth-guard.service';
 import { AdminAuthGuard } from './auth/admin-auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
-import { ResolveDataService } from './admin/shared/services/resolve-data.service';
 
 @NgModule({
   imports: [

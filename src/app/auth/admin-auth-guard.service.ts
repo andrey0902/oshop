@@ -16,7 +16,7 @@ export class AdminAuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.profil.getUser()
-      .pipe(switchMap((user) => {
+      .pipe( switchMap((user) => {
 
         return this.profil.getFBUser(user.uid).valueChanges()
           .pipe(map((val => {

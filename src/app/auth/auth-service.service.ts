@@ -3,11 +3,10 @@ import * as fireBase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {ProfileService} from './profile.service';
 import {Subject} from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from './session.service';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { User } from '../shared/models/user';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,13 +26,17 @@ export class AuthService {
     this.afAuth.authState.
       pipe(takeUntil(this.onDestroy$))
         .subscribe(user => {
-          if (user) {
-            // redirect after login
-            console.log('getReturnUrl', SessionService.getReturnUrl());
-            this.router.navigate([SessionService.getReturnUrl()]);
-            // user from register save in db firebase
-            this.profile.saveUser(user);
+          if (!user) {
+            return this.profile.setUser(null);
           }
+          // redirect after login
+          const url  = SessionService.getReturnUrl();
+          SessionService.setReturnUrl(null);
+
+            this.router.navigate([url || '/']);
+
+          // user from register save in db firebase
+          this.profile.saveUser(user);
           // used for if the user state change we need update header and hide or show button menu
           this.setObjectUser(user);
           // user from register
@@ -66,7 +69,7 @@ export class AuthService {
 
   public setReturnUrl() {
    this.route.queryParamMap.subscribe(params => {
-     SessionService.setReturnUrl(params.get('returnUrl') || '/');
+     SessionService.setReturnUrl(params.get('returnUrl'));
    });
   }
 

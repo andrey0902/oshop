@@ -1,3 +1,18 @@
-<p>
-  products works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      menu
+    </div>
+    <div class="col-12 col-md-8 ">
+      <div class="row">
+        <div class="col-12 col-md-6" *ngFor="let product of products$ | async">
+          <app-card-product [product]="product"></app-card-product>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<p *ngFor="let product of products$ | async">-->
+  <!--products works!-->
+<!--</p>-->

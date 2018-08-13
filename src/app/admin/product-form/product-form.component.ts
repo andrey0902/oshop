@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ManageDataService } from '../shared/services/manage-data.service';
+import { ManageDataService } from '../../shared/services/manage-data.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Product } from '../../shared/models/product';
 import { HelperValidators } from '../../shared/helper-validators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmComponent } from '../../shared/confirm/confirm.component';
 
 @Component({
   selector: 'app-product-form',
@@ -20,7 +21,8 @@ export class ProductFormComponent implements OnInit {
   uid = null;
   constructor(private manageDataService: ManageDataService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private modalService: NgbModal) {
     this.caterories$ = this.manageDataService.getCategoryProduct();
     this.manageDataService.getCategoryProduct().subscribe(val => {
       console.log(val); }
@@ -71,7 +73,7 @@ export class ProductFormComponent implements OnInit {
         Validators.required,
         HelperValidators.isNegative(1)
       ]),
-      categories: new FormControl(null, [
+      category: new FormControl(null, [
         Validators.required,
       ]),
       imageUrl:  new FormControl(null, [
@@ -111,6 +113,25 @@ export class ProductFormComponent implements OnInit {
 
   isValidLink(): boolean {
    return !(this.form.get('imageUrl') as FormControl).hasError('patternUrl');
+  }
+
+  openConfirm() {
+
+    const modalRef = this.modalService.open(ConfirmComponent);
+    modalRef.componentInstance.text = 'Are you sure you want to delete a product?';
+
+    modalRef.result
+      .then(v => {
+        if (v) {
+          this.deleteProduct();
+        }
+      });
+  }
+
+  deleteProduct() {
+    this.manageDataService.deleteProduct(this.uid).then(val => {
+      this.router.navigate(['/admin/products']);
+    });
   }
 
 }
