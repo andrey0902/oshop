@@ -44,7 +44,15 @@ export class ManageDataService {
     return this.db.object(`/products/${uid}`).remove();
   }
 
-  filterBy(search: string, products: any[], fieldName = 'title') {
+  filterByTitle(search: string, product: Product[]) {
+    return this.filterBy(search, product, 'title');
+  }
+
+  filterByCategory(search: string, product: Product[]) {
+    return this.filterBy(search, product, 'category');
+  }
+
+  filterBy(search: string, products: any[], fieldName: string) {
     return products.filter(p => {
       return p[fieldName].toLowerCase().includes(search.toLowerCase());
     });

@@ -22,9 +22,10 @@ export class CardProductComponent implements OnInit {
   }
 
   getQuantity(): string | number {
-    if (!this.shoppingCart) {
+    if (!this.shoppingCart || !this.shoppingCart.items) {
       return 0;
     }
+
     return this.shoppingCart.items[this.product.key] ? this.shoppingCart.items[this.product.key].quantity : 0;
   }
 

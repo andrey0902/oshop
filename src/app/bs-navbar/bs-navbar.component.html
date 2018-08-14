@@ -8,7 +8,15 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'/shopping-cart'">Shopping cart</a>
+          <a class="nav-link"  [routerLink]="'/shopping-cart'">Shopping
+            <span
+              [matBadge]="countProduct"
+              matBadgeOverlap="false"
+              matBadgeColor="accent"
+              >
+              cart
+            </span>
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="'/products'">Products</a>

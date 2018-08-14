@@ -28,14 +28,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.getCart();
   }
 
- async getCart() {
-   (await this.shoppingService.getCart())
-       .pipe(takeUntil(this.onDestroy$))
-     .subscribe(cart => {
-       this.cart = cart;
-       console.log('CART', cart);
-     });
-
+  getCart() {
+    this.shoppingService.getCart()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(cart => {
+        this.cart = cart;
+      });
   }
 
   defineProducts() {
@@ -59,7 +57,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   setFilter(url) {
-    this.filterProducts = url ? this.productService.filterBy(url, this.products, 'category') : this.products;
+    this.filterProducts = url ? this.productService.filterByCategory(url, this.products) : this.products;
   }
 
   ngOnDestroy(): void {

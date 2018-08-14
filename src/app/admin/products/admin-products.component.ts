@@ -26,13 +26,12 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
        .pipe(takeUntil(this.onDestroy$))
       .subscribe((data: Product[]) => {
         this.filterProducts = this.products = data;
-        console.log('data', data);
       });
   }
 
   filter(e) {
     this.filterProducts = e
-      ? this.manageDataService.filterBy(e, this.products)
+      ? this.manageDataService.filterByTitle(e, this.products)
       : this.products;
   }
 
