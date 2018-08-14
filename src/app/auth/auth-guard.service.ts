@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {ProfileService} from './profile.service';
 import {map} from 'rxjs/operators';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private profile: ProfileService, private router: Router) { }
+  constructor(private router: Router,
+              private afAuth: AngularFireAuth) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.profile.getUser()
-      .pipe(map(value => {
-        console.log('GUARD', value);
+    return this.afAuth.authState
+      .pipe( map(value => {
         if (value) {
           return true;
         }

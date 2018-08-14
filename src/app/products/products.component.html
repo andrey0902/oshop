@@ -1,13 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-3">
-      <app-list-categories [categories$]="categories$" [isChoose]="category"></app-list-categories>
+      <div class="position-sticky">
+        <app-list-categories [categories$]="categories$" [selectCategory]="selectCategory"></app-list-categories>
+      </div>
     </div>
     <div class="col-12 col-md-9 ">
       <div class="row">
-        <ng-container *ngFor="let product of filterProduct; let i = index;">
+        <ng-container *ngFor="let product of filterProducts; let i = index;">
           <div class="col" >
-            <app-card-product [product]="product"></app-card-product>
+            <app-card-product [product]="product" [shopping-cart]="cart"></app-card-product>
           </div>
           <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
         </ng-container>
@@ -17,6 +19,3 @@
   </div>
 </div>
 
-<!--<p *ngFor="let product of products$ | async">-->
-  <!--products works!-->
-<!--</p>-->

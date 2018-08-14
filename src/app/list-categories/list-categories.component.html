@@ -1,13 +1,26 @@
-<mat-list role="list" class="list-cat">
-  <mat-list-item
+<div
+  appStickyPosition
+  [startPosition]="20"
+  [disableWidth]="768"
+>
+  <mat-list role="list" class="list-cat">
+    <mat-list-item
+      class="item-cat"
+      role="listitem"
+      (click)="selected(null)"
+      [class.selected]="!selectCategory"
+    >All category
+    </mat-list-item>
 
-    *ngFor="let cat of categories$ | async"
-    class="item-cat"
-    role="listitem"
-    (click)="selected(cat.key)"
-    [class.selected]="cat.key === isSelect"
-  >{{cat.name}}
-    <!--<button class="button-cat" mat-raised-button [color]="cat.key === isSelect? 'primary' :'default'">{{cat.name}}</button>-->
+    <mat-list-item
+      *ngFor="let cat of categories$ | async"
+      class="item-cat"
+      role="listitem"
+      (click)="selected(cat.key)"
+      [class.selected]="cat.key === selectCategory"
+    >{{cat.name}}
+      <!--<button class="button-cat" mat-raised-button [color]="cat.key === isSelect? 'primary' :'default'">{{cat.name}}</button>-->
+    </mat-list-item>
+  </mat-list>
+</div>
 
-  </mat-list-item>
-</mat-list>

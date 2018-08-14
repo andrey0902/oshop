@@ -3,7 +3,8 @@ import { ManageDataService } from '../shared/services/manage-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Product } from '../shared/models/product';
+import {  switchMap, tap } from 'rxjs/operators';
+import { ShoppingCardService } from '../shared/services/shopping-card.service';
 
 @Component({
   selector: 'app-products',
@@ -11,25 +12,45 @@ import { Product } from '../shared/models/product';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit, OnDestroy {
-  filterProduct: any[];
-  product: any[];
+  filterProducts: any[] = [];
+  products: any[] = [];
   categories$;
-  category: string | null = null;
+  selectCategory: string | null = null;
+  cart;
   private onDestroy$ = new Subject<boolean>();
   constructor(public productService: ManageDataService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              public shoppingService: ShoppingCardService) { }
 
   ngOnInit() {
-    this.getProducts();
     this.getCategories();
-    this.getUrl();
+    this.defineProducts();
+    this.getCart();
   }
 
-  public getProducts() {
+ async getCart() {
+   (await this.shoppingService.getCart())
+       .pipe(takeUntil(this.onDestroy$))
+     .subscribe(cart => {
+       this.cart = cart;
+       console.log('CART', cart);
+     });
+
+  }
+
+  defineProducts() {
     this.productService.getAllProducts()
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe((product) => {
-        this.filterProduct = this.product = product;
+      .pipe(tap((products) => {
+          this.filterProducts = this.products = products;
+        }),
+        switchMap((products) => {
+          return this.route.queryParamMap;
+        }),
+        takeUntil(this.onDestroy$)
+      )
+      .subscribe(params => {
+         this.selectCategory = params.get('category');
+          this.setFilter(this.selectCategory);
       });
   }
 
@@ -37,19 +58,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.categories$ = this.productService.getCategoryProduct();
   }
 
-  getUrl() {
-    this.route.queryParamMap.pipe(takeUntil(this.onDestroy$))
-      .subscribe(val => {
-        this.category = val.get('category');
-        if (this.product) {
-          this.setFilter(this.category);
-        }
-      });
-  }
-
   setFilter(url) {
-    this.filterProduct = url ? this.productService.filterBy(url, this.product, 'category') : this.product;
-    console.log('this.filterProduct', this.filterProduct);
+    this.filterProducts = url ? this.productService.filterBy(url, this.products, 'category') : this.products;
   }
 
   ngOnDestroy(): void {

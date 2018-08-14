@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import * as fireBase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {ProfileService} from './profile.service';
-import {Subject} from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from './session.service';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,21 +20,23 @@ export class AuthService {
               private route: ActivatedRoute) {
 
     this.checkChangeUser();
-    this.setReturnUrl();
   }
 
   checkChangeUser() {
-    this.afAuth.authState.
-      pipe(takeUntil(this.onDestroy$))
+    this.afAuth.authState
+      .pipe(takeUntil(this.onDestroy$))
         .subscribe(user => {
           if (!user) {
+            this.profile.setObjectUser(null);
             return this.profile.setUser(null);
           }
           // redirect after login
           const url  = SessionService.getReturnUrl();
           SessionService.setReturnUrl(null);
+            if (url) {
+              this.router.navigate([url]);
+            }
 
-            this.router.navigate([url || '/']);
 
           // user from register save in db firebase
           this.profile.saveUser(user);
@@ -58,6 +61,7 @@ export class AuthService {
   }
 
   loginG() {
+    this.setReturnUrl();
     return this.afAuth.auth.signInWithRedirect(
       new fireBase.auth.GoogleAuthProvider()
     );
@@ -68,9 +72,18 @@ export class AuthService {
   }
 
   public setReturnUrl() {
-   this.route.queryParamMap.subscribe(params => {
-     SessionService.setReturnUrl(params.get('returnUrl'));
-   });
+   const url = this.route.snapshot.queryParamMap.get('returnUrl');
+    SessionService.setReturnUrl(url || '/');
+  }
+
+  getUserForGuard$ () {
+   return this.afAuth.authState
+     .pipe(switchMap((user) => {
+       if (!user) {
+         return of(null);
+       }
+       return this.profile.getFBUser(user.uid).valueChanges();
+     }));
   }
 
 }

@@ -24,6 +24,8 @@ import { ManageDataService } from './shared/services/manage-data.service';
 import { MatButtonModule, MatCardModule, MatListModule } from '@angular/material';
 import { CardProductComponent } from './card-product/card-product.component';
 import { ListCategoriesComponent } from './list-categories/list-categories.component';
+import { StickyPositionDirective } from './shared/directives/sticky-position.directive';
+import { ShoppingCardService } from './shared/services/shopping-card.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { ListCategoriesComponent } from './list-categories/list-categories.compo
     LoginComponent,
     CardProductComponent,
     ListCategoriesComponent,
+    StickyPositionDirective,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { ListCategoriesComponent } from './list-categories/list-categories.compo
   providers: [
     NgbActiveModal,
     ManageDataService,
+    ShoppingCardService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,27 +8,25 @@ import { Router } from '@angular/router';
 })
 export class ListCategoriesComponent implements OnInit {
   @Input() categories$;
-  @Input() isChoose;
+  @Input() selectCategory;
 
   // TODO: after fixed router need apply router satate for selected chosen category
-
-  isSelect = null;
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  selected(select) {
-    this.isSelect = !this.isSelect
-      ? select
-      : this.isSelect === select
+  selected(selectCategory) {
+    this.selectCategory = !this.selectCategory
+      ? selectCategory
+      : this.selectCategory === selectCategory
         ? null
-        : select;
+        : selectCategory;
     this.setQueryParams();
   }
 
   setQueryParams() {
-    this.router.navigate([], {queryParams: {category: this.isSelect}});
+    this.router.navigate([], {queryParams: {category: this.selectCategory}});
   }
 
 }

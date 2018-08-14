@@ -2,11 +2,22 @@
   display: block;
   margin-bottom: 15px;
 }
-.header-image {
+.header-wrap-img {
+  border-radius: 50%;
+  overflow: hidden;
+
+}
+.header-img {
   max-width: 50px;
   height: 50px;
-  border-radius: 50%;
-  margin-top: -16px!important;
-  margin-left: -18px;
   object-fit: cover;
+}
+
+.btn-action {
+  min-width: 30px!important;
+}
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

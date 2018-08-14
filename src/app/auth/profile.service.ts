@@ -23,7 +23,7 @@ export class ProfileService {
     this.objectUser$.next(user);
   }
 
-  getUser(): Observable<firebase.User> {
+  getUser(): Observable<firebase.User | null> {
    return this._user$.asObservable();
   }
 

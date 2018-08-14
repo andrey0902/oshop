@@ -17,6 +17,19 @@ export class SessionService {
   public static getUser() {
     return JSON.parse(localStorage.getItem('o.user'));
   }
+
+  /**
+   * set product in local storage
+   * */
+  public static setCartId(value: any): void {
+    localStorage.setItem('cartId', JSON.stringify(value) );
+  }
+  /**
+   * get product from local storage
+   * */
+  public static getCartId() {
+    return JSON.parse(localStorage.getItem('cartId'));
+  }
   /**
    * set return url in local storage
    * */

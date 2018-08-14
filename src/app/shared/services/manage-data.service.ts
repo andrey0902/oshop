@@ -45,7 +45,6 @@ export class ManageDataService {
   }
 
   filterBy(search: string, products: any[], fieldName = 'title') {
-    console.log(search, products, fieldName);
     return products.filter(p => {
       return p[fieldName].toLowerCase().includes(search.toLowerCase());
     });
