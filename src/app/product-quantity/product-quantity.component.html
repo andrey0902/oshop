@@ -1,0 +1,13 @@
+<div class="action-row" >
+  <button mat-raised-button color="primary"
+          class="btn-action"
+          (click)="removeFromCart()"
+  >-</button>
+  <div>
+    {{shoppingCart.getQuantity(product)}} in cart
+  </div>
+  <button mat-raised-button color="primary"
+          class="btn-action"
+          (click)="addToCart()"
+  >+</button>
+</div>

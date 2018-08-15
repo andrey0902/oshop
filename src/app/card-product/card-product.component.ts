@@ -15,22 +15,11 @@ export class CardProductComponent implements OnInit {
   constructor(private cartService: ShoppingCardService) { }
 
   ngOnInit() {
+    console.log(this.shoppingCart);
   }
 
   addToCart() {
     this.cartService.addToCart(this.product);
-  }
-
-  getQuantity(): string | number {
-    if (!this.shoppingCart || !this.shoppingCart.items) {
-      return 0;
-    }
-
-    return this.shoppingCart.items[this.product.key] ? this.shoppingCart.items[this.product.key].quantity : 0;
-  }
-
-  removeFromCart() {
-    this.cartService.removeFromCart(this.product);
   }
 
 }

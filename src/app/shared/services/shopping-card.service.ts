@@ -15,6 +15,10 @@ export class ShoppingCardService {
   constructor(private db: AngularFireDatabase) {
   }
 
+  clearCart(cartId) {
+    this.db.object(`/shopping-carts/${cartId}`).remove();
+  }
+
   getItem(cartId: string, productId: string) {
       return  this.db.object(
        `/shopping-carts/${cartId}/items/${productId}`
@@ -22,12 +26,14 @@ export class ShoppingCardService {
   }
 
   addToCart(product: Product) {
-    this.updateItemQuantity(product, 1);
+    delete product.$key;
+    this.callUpdateItem(product, 1);
   }
 
   removeFromCart(product: Product) {
     // get refer on the product on db
-    this.updateItemQuantity(product, -1);
+    delete product.$key;
+    this.callUpdateItem(product, -1);
   }
 
   public getCart() {
@@ -59,7 +65,7 @@ export class ShoppingCardService {
         })));
   }
 
-  private updateItemQuantity(product: Product, change: number) {
+  private callUpdateItem(product: Product, change: number) {
     let item$;
     this.getOrCreateCartId()
       .pipe(
@@ -75,11 +81,26 @@ export class ShoppingCardService {
         // check exist product if the truth sum quantity and existing quantity
         const tempProduct: any = {...item.payload.val()};
 
-        // update product
-        item$.update({
-          product: product,
-          quantity: (tempProduct.quantity || 0) + change
-        });
+        const quantity = (tempProduct.quantity || 0) + change;
+        this.handler(item$, product, quantity);
       });
+  }
+
+  private handler (item$, product, quantity) {
+    if (quantity) {
+      return this.updateItem(item$, product, quantity);
+    }
+    this.removeItem(item$);
+  }
+
+  private removeItem(item$) {
+    item$.remove();
+  }
+
+  private updateItem(item$, product, quantity) {
+    item$.update({
+      product,
+      quantity: quantity
+    });
   }
 }

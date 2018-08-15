@@ -13,9 +13,9 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <div class="wrapper-action" *ngIf="showActions">
+    <div class="wrapper-action" *ngIf="showActions && shoppingCart">
       <button
-        *ngIf="getQuantity() === 0; else updateQuantity"
+        *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
         (click)="addToCart()"
         mat-raised-button
         class="w-100"
@@ -23,20 +23,7 @@
       >Add to cart</button>
 
       <ng-template #updateQuantity>
-        <div class="action-row" >
-            <button mat-raised-button color="primary"
-                    class="btn-action"
-                    (click)="removeFromCart()"
-            >-</button>
-            <div>
-               {{getQuantity()}} in cart
-            </div>
-            <button mat-raised-button color="primary"
-                    class="btn-action"
-                    (click)="addToCart()"
-            >+</button>
-
-        </div>
+        <app-product-quantity [shopping-cart]="shoppingCart" [product]="product"></app-product-quantity>
       </ng-template>
 
     </div>

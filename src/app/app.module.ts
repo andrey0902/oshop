@@ -21,11 +21,17 @@ import {AuthModule} from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import 'hammerjs';
 import { ManageDataService } from './shared/services/manage-data.service';
-import { MatBadgeModule, MatButtonModule, MatCardModule, MatChipsModule, MatListModule } from '@angular/material';
+import {
+  MatBadgeModule, MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule,
+  MatListModule
+} from '@angular/material';
 import { CardProductComponent } from './card-product/card-product.component';
 import { ListCategoriesComponent } from './list-categories/list-categories.component';
 import { StickyPositionDirective } from './shared/directives/sticky-position.directive';
 import { ShoppingCardService } from './shared/services/shopping-card.service';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ConfirmMatComponent } from './shared/confirm-mat/confirm-mat.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -42,9 +48,12 @@ import { ShoppingCardService } from './shared/services/shopping-card.service';
     CardProductComponent,
     ListCategoriesComponent,
     StickyPositionDirective,
+    ProductQuantityComponent,
+    ConfirmMatComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -57,11 +66,15 @@ import { ShoppingCardService } from './shared/services/shopping-card.service';
     MatListModule,
     MatBadgeModule,
     MatChipsModule,
+    MatDialogModule,
   ],
   providers: [
     NgbActiveModal,
     ManageDataService,
     ShoppingCardService
+  ],
+  entryComponents: [
+    ConfirmMatComponent
   ],
   bootstrap: [AppComponent]
 })
