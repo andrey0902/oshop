@@ -4,36 +4,50 @@
 
   <p>
     You have {{cart.allCountProduct }} items in your shopping cart.
+
+    <button
+      *ngIf="cart.products.length"
+      mat-button
+      (click)="openConfirm()"
+    >Clear shopping cart</button>
   </p>
   <table class="table">
     <thead>
     <tr>
+      <th></th>
       <th>Product</th>
-      <th>Quantity</th>
-      <th>Price</th>
+      <th class="quantity">Quantity</th>
+      <th class="price">Price</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let item of cart.products">
+      <td>
+        <img class="thamb" [src]="item.product.imageUrl || 'assets/image/blank.jpg'" alt="img">
+      </td>
       <td>{{item.product.title}}
       </td>
-      <td>
+      <td class="td-quantity">
         <app-product-quantity class="actions" [shopping-cart]="cart" [product]="item.product"></app-product-quantity>
       </td>
-      <td>{{item.totalPrice | currency}}</td>
+      <td class="price">{{item.totalPrice | currency}}</td>
     </tr>
     </tbody>
     <tfoot>
     <tr>
       <th>Total Price:</th>
       <th></th>
-      <th>{{cart.totalPrice | currency}}</th>
+      <th></th>
+      <th class="price">{{cart.totalPrice | currency}}</th>
     </tr>
     </tfoot>
   </table>
-  <button
+  <a
+    routerLink="/check-out"
     mat-raised-button
-    color="warn"
-    (click)="openConfirm(cart.key)"
-  >Clear shopping cart</button>
+    color="primary"
+    class="checkout"
+    *ngIf="cart.products.length"
+    (click)="checkOut()"
+  >Check out</a>
 </ng-container>

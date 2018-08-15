@@ -41,6 +41,19 @@ export class ShoppingCart {
     return Object.values(this.items);
   }
 
+  get productsNoKey() {
+    return this.deleteKey();
+  }
+
+  private deleteKey() {
+   return Object.values(this.items).map(i => {
+      console.log('i', i)
+      delete i.product.$key;
+      delete i.product.key;
+      return i;
+    });
+  }
+
   get allCountProduct(): number {
     let tempCount = 0;
     for (const key in this.items) {

@@ -3,6 +3,7 @@ import { ShoppingCardService } from '../shared/services/shopping-card.service';
 import { MatDialog } from '@angular/material';
 import { Subject } from 'rxjs/index';
 import { ConfirmMatComponent } from '../shared/confirm-mat/confirm-mat.component';
+import { takeUntil } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -27,21 +28,25 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.cart$ = this.shoppingCartService.getCart();
   }
 
-  openConfirm(cartId) {
+  openConfirm() {
     const dialogRef = this.dialog.open(ConfirmMatComponent, {
       data: {title: 'Clear shopping cart', question: 'Are you sure you want to empty the cart?'},
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        if (result) {
-         this.clearCart(cartId);
+         this.clearCart();
        }
     });
   }
 
-  clearCart(cartId) {
-    this.shoppingCartService.clearCart(cartId);
+  clearCart() {
+    this.shoppingCartService.clearCart()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe();
   }
 
+  checkOut() {
+
+  }
 }

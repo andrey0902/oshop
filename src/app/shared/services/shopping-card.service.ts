@@ -15,8 +15,12 @@ export class ShoppingCardService {
   constructor(private db: AngularFireDatabase) {
   }
 
-  clearCart(cartId) {
-    this.db.object(`/shopping-carts/${cartId}`).remove();
+  clearCart(): Observable<any> {
+    return this.getOrCreateCartId()
+      .pipe(switchMap(cartId => {
+        return fromPromise(this.db.object(`/shopping-carts/${cartId}`).remove());
+
+      }));
   }
 
   getItem(cartId: string, productId: string) {
@@ -72,10 +76,8 @@ export class ShoppingCardService {
         switchMap((cartId) => {
           // get reference the product
           item$ = this.getItem(cartId, product.key);
-          return item$.snapshotChanges();
-      }),
-        take(1)
-      )
+          return this.getItem(cartId, product.key).snapshotChanges();
+      }), take(1))
       .subscribe((item: any) => {
 
         // check exist product if the truth sum quantity and existing quantity

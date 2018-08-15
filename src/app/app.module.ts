@@ -32,6 +32,10 @@ import { ShoppingCardService } from './shared/services/shopping-card.service';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 import { ConfirmMatComponent } from './shared/confirm-mat/confirm-mat.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CheckOutFormComponent } from './check-out/check-out-form/check-out-form.component';
+import { InputLastModule } from './input-last/input.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrderService } from './shared/services/order.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StickyPositionDirective,
     ProductQuantityComponent,
     ConfirmMatComponent,
+    CheckOutFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,11 +72,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatBadgeModule,
     MatChipsModule,
     MatDialogModule,
+    InputLastModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     NgbActiveModal,
     ManageDataService,
-    ShoppingCardService
+    ShoppingCardService,
+    OrderService,
   ],
   entryComponents: [
     ConfirmMatComponent

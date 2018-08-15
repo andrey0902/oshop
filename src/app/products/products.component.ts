@@ -48,7 +48,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       )
       .subscribe(params => {
          this.selectCategory = params.get('category');
-          this.setFilter(this.selectCategory);
+          this.filterByCategory(this.selectCategory);
       });
   }
 
@@ -56,7 +56,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.categories$ = this.productService.getCategoryProduct();
   }
 
-  setFilter(url) {
+  filterByCategory(url) {
     this.filterProducts = url ? this.productService.filterByCategory(url, this.products) : this.products;
   }
 
