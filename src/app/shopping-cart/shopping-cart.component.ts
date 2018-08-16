@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ShoppingCardService } from '../shared/services/shopping-card.service';
 import { MatDialog } from '@angular/material';
 import { Subject } from 'rxjs/index';
-import { ConfirmMatComponent } from '../shared/confirm-mat/confirm-mat.component';
+import { ConfirmMatComponent } from '../shared/components/confirm-mat/confirm-mat.component';
 import { takeUntil } from 'rxjs/internal/operators';
 
 @Component({

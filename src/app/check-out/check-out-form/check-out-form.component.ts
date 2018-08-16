@@ -30,7 +30,6 @@ export class CheckOutFormComponent implements OnInit {
         Validators.minLength(3),
         HelperValidators.checkSpace]],
       address2: [null, [
-        Validators.required,
         Validators.maxLength(20),
         Validators.minLength(3),
         HelperValidators.checkSpace]],
@@ -44,13 +43,8 @@ export class CheckOutFormComponent implements OnInit {
 
   placeOrder() {
     if (this.checkoutForm.value) {
-      const order = {
-        datePlaced: new Date().getTime(),
-        shipping: this.checkoutForm.value
-      };
-      this.saveOrder.emit(order);
-      console.log(order);
+      this.saveOrder.emit(this.checkoutForm.value);
+      }
     }
-  }
 
 }

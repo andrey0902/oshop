@@ -30,7 +30,8 @@ export class InputComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    (this.controlValidation) ? this.init() : null;
+    if (this.controlValidation) {
+    } this.init();
   }
 
   checkValidStatus(): boolean {

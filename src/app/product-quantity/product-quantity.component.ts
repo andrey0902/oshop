@@ -8,7 +8,7 @@ import { Product } from '../shared/models/product';
   styleUrls: ['./product-quantity.component.scss']
 })
 export class ProductQuantityComponent implements OnInit {
-  @Input('shopping-cart') shoppingCart;
+  @Input('shoppingCart') shoppingCart;
   @Input() product: Product;
   constructor(private cartService: ShoppingCardService) { }
 

@@ -1,0 +1,20 @@
+.item {
+  display: flex;
+  width: 100%;
+
+  .left, .right {
+    flex: 1;
+  }
+  .right {
+    text-align: right;
+
+  }
+
+  .accent {
+    font-weight: bold;
+  }
+}
+
+.mat-divider-horizontal {
+  position: relative !important;
+}

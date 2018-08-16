@@ -17,11 +17,11 @@ export class ValidationDirective implements OnDestroy, AfterViewInit, InputFormF
   onDestroy$ = new Subject<boolean>();
   stateChange$ = new Subject<boolean>();
 
-  constructor(public el: ElementRef, @Optional()public control : NgControl) {
+  constructor(public el: ElementRef, @Optional()public control: NgControl) {
   }
 
   ngAfterViewInit() {
-    if (this.control && this.control.valueChanges)
+    if (this.control && this.control.valueChanges) {
       this.control.valueChanges
         .pipe(takeUntil(this.onDestroy$))
         .subscribe(() => {
@@ -31,7 +31,8 @@ export class ValidationDirective implements OnDestroy, AfterViewInit, InputFormF
            * */
           this.stateChange$.next(true);
 
-        })
+        });
+    }
   }
 
   ngOnDestroy(): void {
@@ -50,9 +51,10 @@ export class ValidationDirective implements OnDestroy, AfterViewInit, InputFormF
 
   get stateErrors(): boolean {
 
-    if (this.control && this.control.errors)
+    if (this.control && this.control.errors) {
       // && this.control.dirty
       return Object.keys(this.control.errors).length > 0  && this.control.touched;
+    }
 
     return false;
   }

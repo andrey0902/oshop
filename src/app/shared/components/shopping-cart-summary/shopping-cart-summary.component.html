@@ -1,0 +1,36 @@
+<mat-card class="summary-order">
+  <mat-card-header>
+    <!--<mat-card-title>Order Summary</mat-card-title>-->
+    <mat-card-title>You have {{cart.allCountProduct  }} items in your shopping cart.</mat-card-title>
+    <!--<mat-card-subtitle></mat-card-subtitle>-->
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <ng-container *ngFor="let item of cart.products">
+        <mat-list-item >
+          <div class="item">
+            <div class="left">
+              {{item.quantity}} x {{item.product.title}}
+            </div>
+            <div class="right">
+              {{allPrice(item) | currency}}
+            </div>
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+      <mat-list-item>
+        <div class="item">
+          <div class="left">
+            Total
+          </div>
+          <div class="right accent">
+            {{cart.totalPrice | currency}}
+          </div>
+        </div>
+      </mat-list-item>
+
+    </mat-list>
+  </mat-card-content>
+
+</mat-card>

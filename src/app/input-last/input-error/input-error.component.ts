@@ -33,7 +33,7 @@ export class InputErrorComponent implements OnInit, OnDestroy {
   }
 
   isState(): Observable<any> {
-    if( this.parent && this.parent.controlValidation) {
+    if ( this.parent && this.parent.controlValidation) {
       return this.parent.controlValidation.stateChange$;
     }
       return null;
@@ -46,8 +46,9 @@ export class InputErrorComponent implements OnInit, OnDestroy {
   changeControl(): void {
     const state: Observable<any> | null = this.isState();
 
-    if (state)
+    if (state) {
        this.handlerChang(state);
+    }
   }
 
   handlerChang(state: Observable<any>): void {

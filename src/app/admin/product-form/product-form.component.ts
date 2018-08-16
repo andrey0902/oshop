@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmComponent } from '../../shared/confirm/confirm.component';
+import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-product-form',

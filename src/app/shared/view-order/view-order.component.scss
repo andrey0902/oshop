@@ -1,0 +1,25 @@
+.quantity {
+  text-align: center;
+}
+
+.price {
+  text-align: right;
+  width: 200px;
+}
+
+.td-quantity, .quotient {
+  width: 250px;
+  text-align: center;
+}
+
+.thamb {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+ht, td {
+  vertical-align: middle;
+}

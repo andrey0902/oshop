@@ -10,8 +10,8 @@ import { ShoppingCardService } from '../shared/services/shopping-card.service';
 })
 export class CardProductComponent implements OnInit {
   @Input() product: Product;
-  @Input('shopping-cart') shoppingCart;
-  @Input('show-actions') showActions = true;
+  @Input('shoppingCart') shoppingCart;
+  @Input('showActions') showActions = true;
   constructor(private cartService: ShoppingCardService) { }
 
   ngOnInit() {

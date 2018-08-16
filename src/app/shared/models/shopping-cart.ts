@@ -47,7 +47,6 @@ export class ShoppingCart {
 
   private deleteKey() {
    return Object.values(this.items).map(i => {
-      console.log('i', i)
       delete i.product.$key;
       delete i.product.key;
       return i;

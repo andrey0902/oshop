@@ -40,7 +40,7 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
         ]
       },
       {
-        path: 'order-success',
+        path: 'order-success/:id',
         component: OrderSuccesComponent,
         canActivate: [
           AuthGuard

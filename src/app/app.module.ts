@@ -13,7 +13,6 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { OrderSuccesComponent } from './order-succes/order-succes.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { AdminOrdersComponent } from './admin/orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
 import {AppRoutingModule} from './app-routing.module';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,20 +21,21 @@ import { AdminModule } from './admin/admin.module';
 import 'hammerjs';
 import { ManageDataService } from './shared/services/manage-data.service';
 import {
-  MatBadgeModule, MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule,
-  MatListModule
+  MatBadgeModule, MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule, MatDividerModule, MatListModule
 } from '@angular/material';
 import { CardProductComponent } from './card-product/card-product.component';
 import { ListCategoriesComponent } from './list-categories/list-categories.component';
 import { StickyPositionDirective } from './shared/directives/sticky-position.directive';
 import { ShoppingCardService } from './shared/services/shopping-card.service';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
-import { ConfirmMatComponent } from './shared/confirm-mat/confirm-mat.component';
+import { ConfirmMatComponent } from './shared/components/confirm-mat/confirm-mat.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CheckOutFormComponent } from './check-out/check-out-form/check-out-form.component';
 import { InputLastModule } from './input-last/input.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderService } from './shared/services/order.service';
+import { ShoppingCartSummaryComponent } from './shared/components/shopping-cart-summary/shopping-cart-summary.component';
+import { ViewOrderModule } from './shared/view-order/view-order.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,6 @@ import { OrderService } from './shared/services/order.service';
     CheckOutComponent,
     OrderSuccesComponent,
     MyOrdersComponent,
-    AdminOrdersComponent,
     LoginComponent,
     CardProductComponent,
     ListCategoriesComponent,
@@ -55,6 +54,7 @@ import { OrderService } from './shared/services/order.service';
     ProductQuantityComponent,
     ConfirmMatComponent,
     CheckOutFormComponent,
+    ShoppingCartSummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +75,8 @@ import { OrderService } from './shared/services/order.service';
     InputLastModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDividerModule,
+    ViewOrderModule,
   ],
   providers: [
     NgbActiveModal,

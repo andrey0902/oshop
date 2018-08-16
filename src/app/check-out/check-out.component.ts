@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ShoppingCardService } from '../shared/services/shopping-card.service';
-import { takeUntil } from 'rxjs/internal/operators';
-import { Subject } from 'rxjs/index';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { OrderService } from '../shared/services/order.service';
-import { AuthService } from '../auth/auth-service.service';
 import { ProfileService } from '../auth/profile.service';
+import { Order } from '../shared/models/order';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-check-out',
@@ -17,7 +18,8 @@ export class CheckOutComponent implements OnInit, OnDestroy {
   userUid;
   constructor(private shoppingCartService: ShoppingCardService,
               private orderService: OrderService,
-              private profileService: ProfileService) { }
+              private profileService: ProfileService,
+              private router: Router) { }
 
   ngOnInit() {
     this.getCart();
@@ -28,7 +30,6 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     this.profileService.getUser()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(user => {
-        console.log(user);
         this.userUid = user.uid;
       });
   }
@@ -43,16 +44,24 @@ export class CheckOutComponent implements OnInit, OnDestroy {
       .subscribe(cart => this.cart = cart);
   }
 
-  placedOrder(e) {
-    // console.log(e, this.cart.products);
-    console.log(e, this.cart.productsNoKey);
-    e['items'] = this.cart.productsNoKey;
-    e['userUid'] = this.userUid;
-    this.orderService.storeOrder(e)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe(v => {
-        console.log('res save', v);
-      });
+  placedOrder(shopping) {
+    const order = this.initOrder(shopping);
+
+    this.orderService.storeOrder(order)
+      .pipe(takeUntil(this.onDestroy$),
+        switchMap((result: any) => {
+          this.router.navigate(['/order-success/', result.key]);
+          return this.shoppingCartService.clearCart();
+        }))
+      .subscribe();
+  }
+
+  initOrder(shopping) {
+    return new Order({
+      shopping,
+      items: this.cart.productsNoKey,
+      userUid: this.userUid
+    });
   }
 
 }
