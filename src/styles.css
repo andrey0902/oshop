@@ -5,7 +5,13 @@
 @import '~@swimlane/ngx-datatable/release/themes/material.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 body {
   padding-top: 80px;
   font-family: 'Merriweather Sans', sans-serif;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 400;
 }

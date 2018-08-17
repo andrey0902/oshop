@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputLastModule } from '../input-last/input.module';
+import { InputModule } from '../shared/input/input.module';
 import { CardModule } from '../shared/components/card/card.module';
 import { ResolveDataService } from './shared/services/resolve-data.service';
 import { ConfirmComponent } from '../shared/components/confirm/confirm.component';
@@ -14,13 +14,12 @@ import { AdminOrdersComponent } from './orders/admin-orders.component';
 import { MatButtonModule, MatDialogModule } from '@angular/material';
 import { SimpleTableComponent } from '../shared/components/simple-table/simple-table.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    InputLastModule,
+    InputModule,
     CardModule,
     RouterModule,
     NgxDatatableModule,

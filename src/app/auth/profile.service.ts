@@ -32,11 +32,13 @@ export class ProfileService {
     // ToDo: need save to session storage and locale storage
   }
 
-  saveUser(user: firebase.User) {
-    this.db.object(`/users/${user.uid}`)
+  saveUser(user: firebase.User): Promise<void> {
+    console.log('user', user);
+   return this.db.object(`/users/${user.uid}`)
       .update({
         name: user.displayName,
-        email: user.email
+        email: user.email,
+        exist: true
       });
   }
 

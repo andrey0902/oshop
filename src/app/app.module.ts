@@ -13,7 +13,6 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { OrderSuccesComponent } from './order-succes/order-succes.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { LoginComponent } from './login/login.component';
 import {AppRoutingModule} from './app-routing.module';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {AuthModule} from './auth/auth.module';
@@ -31,7 +30,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
 import { ConfirmMatComponent } from './shared/components/confirm-mat/confirm-mat.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CheckOutFormComponent } from './check-out/check-out-form/check-out-form.component';
-import { InputLastModule } from './input-last/input.module';
+import {  InputModule } from './shared/input/input.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderService } from './shared/services/order.service';
 import { ShoppingCartSummaryComponent } from './shared/components/shopping-cart-summary/shopping-cart-summary.component';
@@ -47,7 +46,6 @@ import { ViewOrderModule } from './shared/view-order/view-order.module';
     CheckOutComponent,
     OrderSuccesComponent,
     MyOrdersComponent,
-    LoginComponent,
     CardProductComponent,
     ListCategoriesComponent,
     StickyPositionDirective,
@@ -72,7 +70,7 @@ import { ViewOrderModule } from './shared/view-order/view-order.module';
     MatBadgeModule,
     MatChipsModule,
     MatDialogModule,
-    InputLastModule,
+    InputModule,
     FormsModule,
     ReactiveFormsModule,
     MatDividerModule,

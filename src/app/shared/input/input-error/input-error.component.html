@@ -60,5 +60,14 @@
     [message]="errorMessage">
     <ng-content select=".isNegative-error"></ng-content>
   </app-negative-error>
-
+  <app-password-match-error
+    *ngSwitchCase="'passwordMatch'"
+    [message]="errorMessage">
+    <ng-content select=".password-match-error"></ng-content>
+  </app-password-match-error>
+  <app-pattern-email-error
+    *ngSwitchCase="'patternEmail'"
+    [message]="errorMessage">
+    <ng-content select=".password-match-error"></ng-content>
+  </app-pattern-email-error>
 </div>

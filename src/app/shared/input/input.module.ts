@@ -10,6 +10,8 @@ import { RequiredErrorComponent } from './required-error/required-error.componen
 import { StrEmptyComponent } from './str-empty/str-empty.component';
 import { UrlPatternErrorComponent } from './url-pattern-error/url-pattern-error.component';
 import { NegativeErrorComponent } from './negative-error/negative-error.component';
+import { PasswordMatchErrorComponent } from './password-match-error/password-match-error.component';
+import { PatternEmailErrorComponent } from './pattern-email-error/pattern-email-error.component';
 
 @NgModule({
   imports: [
@@ -25,6 +27,8 @@ import { NegativeErrorComponent } from './negative-error/negative-error.componen
     StrEmptyComponent,
     UrlPatternErrorComponent,
     NegativeErrorComponent,
+    PasswordMatchErrorComponent,
+    PatternEmailErrorComponent,
   ],
   exports: [
     InputComponent,
@@ -35,4 +39,4 @@ import { NegativeErrorComponent } from './negative-error/negative-error.componen
     HandlerErrorService
   ]
 })
-export class InputLastModule { }
+export class InputModule { }
