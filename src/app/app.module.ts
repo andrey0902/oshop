@@ -6,7 +6,6 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
@@ -16,11 +15,10 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import {AppRoutingModule} from './app-routing.module';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {AuthModule} from './auth/auth.module';
-import { AdminModule } from './admin/admin.module';
 import 'hammerjs';
 import { ManageDataService } from './shared/services/manage-data.service';
 import {
-  MatBadgeModule, MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule, MatDividerModule, MatListModule,
+   MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule, MatDividerModule, MatListModule,
   MatProgressSpinnerModule
 } from '@angular/material';
 import { CardProductComponent } from './card-product/card-product.component';

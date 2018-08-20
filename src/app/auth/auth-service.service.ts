@@ -39,7 +39,7 @@ export class AuthService {
           return this.profile.getFBUser(user.uid).snapshotChanges()
             .pipe(
               take(1),
-              map((fullUser: any) => fulluser.payload.exists() ? fullUser.payload.val() : user));
+              map((fullUser: any) => fullUser.payload.exists() ? fullUser.payload.val() : user));
         }))
         .subscribe(user => {
 
