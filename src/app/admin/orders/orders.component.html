@@ -1,34 +1,5 @@
-<h2>Order List</h2>
+<h2 class="order-list">Order List</h2>
 <div>
-
-  <!--<ngx-datatable #table-->
-    <!--class="material"-->
-                 <!--[columnMode]="'force'"-->
-                 <!--[headerHeight]="50"-->
-                 <!--[footerHeight]="50"-->
-                 <!--[rowHeight]="'auto'"-->
-                 <!--[limit]="5"-->
-                 <!--[loadingIndicator]="!rows"-->
-                 <!--[rows]="rows"-->
-                 <!--[count]="rows ? rows.length : 0"-->
-  <!--&gt;-->
-    <!--<ngx-datatable-column [name]="'Name'" [prop]="'shopping'" [width]="'auto'">-->
-      <!--<ng-template let-shopping="value" ngx-datatable-cell-template>-->
-        <!--{{shopping.name}}-->
-      <!--</ng-template>-->
-    <!--</ngx-datatable-column>-->
-
-    <!--<ngx-datatable-column [name]="'Date'" [prop]="'datePlaced'"  [width]="'auto'">-->
-      <!--<ng-template let-value="value" ngx-datatable-cell-template>-->
-        <!--{{value | date }}-->
-      <!--</ng-template>-->
-    <!--</ngx-datatable-column>-->
-    <!--<ngx-datatable-column [name]="'View'" [prop]="'items'">-->
-      <!--<ng-template let-value="value" ngx-datatable-cell-template>-->
-        <!--<button (click)="openModal(value)" mat-raised-button color="primary">View</button>-->
-      <!--</ng-template>-->
-    <!--</ngx-datatable-column>-->
-  <!--</ngx-datatable>-->
   <app-simple-table [rows]="rows"></app-simple-table>
 </div>
 

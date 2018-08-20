@@ -20,26 +20,27 @@ import { AdminModule } from './admin/admin.module';
 import 'hammerjs';
 import { ManageDataService } from './shared/services/manage-data.service';
 import {
-  MatBadgeModule, MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule, MatDividerModule, MatListModule
+  MatBadgeModule, MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule, MatDividerModule, MatListModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { CardProductComponent } from './card-product/card-product.component';
 import { ListCategoriesComponent } from './list-categories/list-categories.component';
 import { StickyPositionDirective } from './shared/directives/sticky-position.directive';
 import { ShoppingCardService } from './shared/services/shopping-card.service';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
-import { ConfirmMatComponent } from './shared/components/confirm-mat/confirm-mat.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CheckOutFormComponent } from './check-out/check-out-form/check-out-form.component';
 import {  InputModule } from './shared/input/input.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderService } from './shared/services/order.service';
 import { ShoppingCartSummaryComponent } from './shared/components/shopping-cart-summary/shopping-cart-summary.component';
-import { ViewOrderModule } from './shared/view-order/view-order.module';
+import { HeaderModule } from './shared/header/header.module';
+import { SimpleTableModule } from './shared/simple-table/simple-table.module';
+import { ConfirmMatModule } from './shared/confirm-mat/confirm-mat.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BsNavbarComponent,
     HomeComponent,
     ProductsComponent,
     ShoppingCartComponent,
@@ -50,7 +51,6 @@ import { ViewOrderModule } from './shared/view-order/view-order.module';
     ListCategoriesComponent,
     StickyPositionDirective,
     ProductQuantityComponent,
-    ConfirmMatComponent,
     CheckOutFormComponent,
     ShoppingCartSummaryComponent,
   ],
@@ -63,27 +63,26 @@ import { ViewOrderModule } from './shared/view-order/view-order.module';
     AppRoutingModule,
     NgbModule.forRoot(),
     AuthModule,
-    AdminModule,
     MatCardModule,
     MatButtonModule,
     MatListModule,
-    MatBadgeModule,
     MatChipsModule,
     MatDialogModule,
     InputModule,
     FormsModule,
     ReactiveFormsModule,
     MatDividerModule,
-    ViewOrderModule,
+    HeaderModule,
+    MatProgressSpinnerModule,
+
+    SimpleTableModule,
+    ConfirmMatModule,
   ],
   providers: [
     NgbActiveModal,
     ManageDataService,
     ShoppingCardService,
     OrderService,
-  ],
-  entryComponents: [
-    ConfirmMatComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="canShowPage; else preload">
     <div class="col-12 col-md-3">
       <div class="position-sticky">
         <app-list-categories [categories$]="categories$" [selectCategory]="selectCategory"></app-list-categories>
@@ -8,7 +8,7 @@
     <div class="col-12 col-md-9 ">
       <div class="row">
         <ng-container *ngFor="let product of filterProducts; let i = index;">
-          <div class="col" >
+          <div class="col-12 col-md-6" >
             <app-card-product [product]="product" [shoppingCart]="cart"></app-card-product>
           </div>
           <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
@@ -19,3 +19,8 @@
   </div>
 </div>
 
+<ng-template #preload>
+  <div class="wrapper-preloader">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

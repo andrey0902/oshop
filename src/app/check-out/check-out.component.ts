@@ -30,6 +30,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     this.profileService.getUser()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(user => {
+        console.log('USER', user);
         this.userUid = user.uid;
       });
   }

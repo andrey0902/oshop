@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as fireBase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {ProfileService} from './profile.service';
-import { Observable, of, Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from './session.service';
@@ -16,39 +16,38 @@ import { map, take } from 'rxjs/internal/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  onDestroy$ = new Subject<boolean>();
-
+  cancelStateChange = new Subject();
+  redirectUrl = null;
   constructor(private afAuth: AngularFireAuth,
               private profile: ProfileService,
               private router: Router,
               private route: ActivatedRoute) {
 
-    this.checkChangeUser();
+     this.checkChangeUser();
   }
 
   checkChangeUser() {
-    this.afAuth.authState
-      .pipe(takeUntil(this.onDestroy$),
+   return this.afAuth.authState
+      .pipe(takeUntil(this.cancelStateChange),
         switchMap((user: any) => {
         // check exist user or not
 
           if (!user) {
             return of(null);
           }
-
+          this.profile.setUser(user);
           return this.profile.getFBUser(user.uid).snapshotChanges()
             .pipe(
               take(1),
-              map((fulluser) => fulluser.payload.exists() ? fulluser.payload.val() : user)
-            );
+              map((fullUser: any) => fulluser.payload.exists() ? fullUser.payload.val() : user));
         }))
         .subscribe(user => {
-          console.log('USER', user);
+
           if (!user) {
             this.profile.setObjectUser(null);
             return;
           }
-          this. handlerForSetUser(user);
+          this.handlerForSetUser(user);
         });
   }
 
@@ -66,7 +65,7 @@ export class AuthService {
   }
 
   redirectUser() {
-    const url  = SessionService.getReturnUrl();
+    const url  = SessionService.getReturnUrl() || this.redirectUrl;
     SessionService.setReturnUrl(null);
     if (url) {
       this.router.navigate([url]);
@@ -75,50 +74,27 @@ export class AuthService {
 
 
   setObjectUser(user: fireBase.User) {
-    // if (user) {
-    //   this.profile.getFBUser(user.uid)
-    //     .valueChanges()
-    //     .subscribe(objUser => {
-    //       this.profile.setObjectUser(objUser);
-    //     });
-    //   return;
-    // }
     this.profile.setObjectUser(null);
   }
 
   loginG() {
     this.setReturnUrl();
-    return fromPromise(this.afAuth.auth.signInWithRedirect(
+   this.afAuth.auth.signInWithRedirect(
       new fireBase.auth.GoogleAuthProvider()
-    ));
+    );
   }
 
   logout() {
-   return this.afAuth.auth.signOut().then(value => this.router.navigate(['/auth/login']));
+   this.profile.setObjectUser(null);
+   return this.afAuth.auth.signOut().then(value => this.router.navigate(['/']));
   }
 
   signUpWithEmail(data) {
     return fromPromise(this.afAuth.auth.createUserWithEmailAndPassword(data.email, data.password));
-      // .then((user) => {
-      // console.log(user);
-      //   this.authState = user;
-      // })
-      // .catch(error => {
-      //   console.log(error);
-      //   throw error;
-      // });
   }
 
   loginWithEmail(data) {
     return fromPromise(this.afAuth.auth.signInWithEmailAndPassword(data.email, data.password));
-      // .then((user) => {
-      //   this.authState = user;
-      //   console.log(user);
-      // })
-      // .catch(error => {
-      //   console.log(error);
-      //   throw error;
-      // });
   }
 
   public setReturnUrl() {

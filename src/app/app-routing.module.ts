@@ -57,36 +57,8 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
         ]
       },
       {
-        path: 'admin/products',
-        component: AdminProductsComponent,
-        canActivate: [
-          AuthGuard,
-          AdminAuthGuard
-        ]
-      },
-      {
-        path: 'admin/orders',
-        component: AdminOrdersComponent,
-        canActivate: [
-          AuthGuard,
-          AdminAuthGuard
-        ]
-      },
-      {
-        path: 'admin/product/new',
-        component: ProductFormComponent,
-        canActivate: [
-          AuthGuard,
-          AdminAuthGuard
-        ]
-      },
-      {
-        path: 'admin/product/:uid',
-        component: ProductFormComponent,
-        canActivate: [
-          AuthGuard,
-          AdminAuthGuard
-        ]
+        path: 'admin',
+        loadChildren: './admin/admin.module#AdminModule'
       },
     ])
   ],

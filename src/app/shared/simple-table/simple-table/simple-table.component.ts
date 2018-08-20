@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { ViewOrderComponent } from '../../view-order/view-order.component';
+import { ViewOrderComponent } from '../view-order/view-order.component';
 
 @Component({
   selector: 'app-simple-table',

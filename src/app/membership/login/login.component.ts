@@ -2,14 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {AuthService} from '../../auth/auth-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperValidators } from '../../shared/helper-validators';
-import { switchMap, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/index';
+import { switchMap, takeUntil, map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { ProfileService } from '../../auth/profile.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
   singIn: FormGroup;
@@ -17,12 +19,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   hidePassword = false;
   serverError = null;
   onDestroy$ = new Subject();
+  cancelStateChange = new Subject();
   constructor(private authService: AuthService,
               private fb: FormBuilder,
-              private profileService: ProfileService) { }
+              private profileService: ProfileService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.createForm();
+    this.authService.redirectUrl = '/';
   }
 
   createForm() {
@@ -44,15 +50,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   sendSingUp() {
     if (this.singIn.valid) {
-      this.authService.onDestroy$.next(true);
+      this.authService.cancelStateChange.next(true);
       this.shoveSpinner = true;
       this.authService.loginWithEmail(this.singIn.value)
         .pipe(takeUntil(this.onDestroy$),
-          switchMap(this.placeUser()))
+          switchMap(this.getUser()),
+          map((res: any) => new User(res.payload.val())))
         .subscribe((res: any) => {
-
+          console.log('RESULT',
+            res);
+          this.profileService.setObjectUser(res);
           this.shoveSpinner = false;
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/']);
 
         }, error => {
           console.warn('error', error);
@@ -62,9 +71,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  placeUser() {
+  getUser() {
     // TODO: need do later
-    return this.profileService.getFBUser();
+    return (user) => {
+      this.profileService.setUser(user);
+      console.log('switch', user.user);
+      return this.profileService.getFBUser(user.user.uid).snapshotChanges();
+    };
   }
 
   public loginGoogle() {

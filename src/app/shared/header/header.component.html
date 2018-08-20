@@ -1,55 +1,96 @@
 <header>
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" routerLink="/">Oshop</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link"  [routerLink]="'/shopping-cart'">Shopping
-            <span
-              [matBadge]="countProduct"
-              matBadgeOverlap="false"
-              matBadgeColor="accent"
-            >
-              cart
-            </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="'/products'">Products</a>
-        </li>
-        <ng-container *ngIf="!user; else ononymousUser">
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="'/auth/login'">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="'/auth/sign-up'">SignUp</a>
-          </li>
-        </ng-container>
+  <!--<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">-->
+    <!--<a class="navbar-brand" routerLink="/">Oshop</a>-->
+    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">-->
+      <!--<span class="navbar-toggler-icon"></span>-->
+    <!--</button>-->
+    <!--<div class="collapse navbar-collapse" id="navbarCollapse">-->
+      <!--<ul class="navbar-nav mr-auto">-->
+        <!--<li class="nav-item">-->
+          <!--<a class="nav-link"  [routerLink]="'/shopping-cart'">Shopping-->
+            <!--<span-->
+              <!--[matBadge]="countProduct"-->
+              <!--matBadgeOverlap="false"-->
+              <!--matBadgeColor="accent"-->
+            <!--&gt;-->
+              <!--cart-->
+            <!--</span>-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<ng-container *ngIf="!user; else ononymousUser">-->
+          <!--<li class="nav-item">-->
+            <!--<a class="nav-link" [routerLink]="'/auth/login'">Login</a>-->
+          <!--</li>-->
+          <!--<li class="nav-item">-->
+            <!--<a class="nav-link" [routerLink]="'/auth/sign-up'">SignUp</a>-->
+          <!--</li>-->
+        <!--</ng-container>-->
 
-        <ng-template #ononymousUser>
-          <li>
-            <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ user?.name}}</button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button routerLink="/my/orders" class="dropdown-item">My orders</button>
-                <ng-container *ngIf="user?.isAdmin">
-                  <button routerLink="/admin/orders" class="dropdown-item">Manage orders</button>
-                  <button routerLink="/admin/products" class="dropdown-item">Manage products</button>
-                </ng-container>
-                <button class="dropdown-item"
-                        (click)="logout()"
-                >Log out</button>
-              </div>
-            </div>
+        <!--<ng-template #ononymousUser>-->
+          <!--<li>-->
+            <!--<div ngbDropdown class="d-inline-block">-->
+              <!--<button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ user?.name}}</button>-->
+              <!--<div ngbDropdownMenu aria-labelledby="dropdownBasic1">-->
+                <!--<button routerLink="/my/orders" class="dropdown-item">My orders</button>-->
+                <!--<ng-container *ngIf="user?.isAdmin">-->
+                  <!--<button routerLink="/admin/orders" class="dropdown-item">Manage orders</button>-->
+                  <!--<button routerLink="/admin/products" class="dropdown-item">Manage products</button>-->
+                <!--</ng-container>-->
+                <!--<button class="dropdown-item"-->
+                        <!--(click)="logout()"-->
+                <!--&gt;Log out</button>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</li>-->
+        <!--</ng-template>-->
+
+      <!--</ul>-->
+
+    <!--</div>-->
+  <!--</nav>-->
+
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-material">
+    <div class="first-position">
+      <a class="navbar-brand" routerLink="/">Oshop</a>
+
+      <a class="link-cart" mat-button [routerLink]="'/shopping-cart'">Shopping cart
+        <span *ngIf="countProduct"
+          [matBadge]="countProduct"
+          matBadgeOverlap="false"
+          matBadgeColor="accent"
+        ></span>
+      </a>
+    </div>
+    <div class="two-position">
+      <ng-container *ngIf="!user; else ononymousUser">
+        <ul class="nav-group">
+          <li class="nav-item" routerLinkActive="active">
+            <a class="link-anchor" mat-button  [routerLink]="'/auth/login'">Login</a>
           </li>
-        </ng-template>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="link-anchor" mat-button [routerLink]="'/auth/sign-up'">SignUp</a>
+          </li>
+        </ul>
+      </ng-container>
 
-      </ul>
 
+      <ng-template #ononymousUser>
+        <button mat-button
+                [matMenuTriggerFor]="menu"
+                class="btn-trigger"
+        >
+          <span>{{user?.name}}</span><mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a routerLink="/my/orders" routerLinkActive="active" class="link" mat-menu-item>My orders</a>
+          <ng-container *ngIf="user?.isAdmin">
+            <a routerLink="/admin/orders" routerLinkActive="active" class="link" mat-menu-item>Manage orders</a>
+            <a routerLink="/admin/products" routerLinkActive="active" class="link" mat-menu-item>Manage products</a>
+          </ng-container>
+          <button (click)="logout()" mat-menu-item>Log out</button>
+        </mat-menu>
+      </ng-template>
     </div>
   </nav>
 </header>

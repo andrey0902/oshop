@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputModule } from '../shared/input/input.module';
 import { MatButtonModule, MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import { ServerNonErrorModule } from '../shared/server-error-non/server-error.module';
+import { AuthGuardService } from './shared/service/auth-guard.service';
 
 @NgModule({
   imports: [
@@ -26,6 +27,9 @@ import { ServerNonErrorModule } from '../shared/server-error-non/server-error.mo
   declarations: [
     LoginComponent,
     SignUpComponent,
+  ],
+  providers: [
+    AuthGuardService
   ]
 })
 export class MembershipModule { }

@@ -26,12 +26,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.createForm();
+    this.authService.redirectUrl = '/';
   }
 
   loginGoogle() {
-    this.authService.loginG().subscribe(v => {
-      console.log('LOGIN', v);
-    });
+    this.authService.loginG();
   }
 
   createForm() {
@@ -68,7 +67,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   sendSingUp() {
     if (this.signUp.valid) {
-      this.authService.onDestroy$.next(true);
+      this.authService.cancelStateChange.next(true);
       this.shoveSpinner = true;
       this.authService.signUpWithEmail(this.signUp.value)
         .pipe(takeUntil(this.onDestroy$),

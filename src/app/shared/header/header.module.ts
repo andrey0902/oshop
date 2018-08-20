@@ -1,12 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
+import { RouterModule } from '@angular/router';
+import { MatBadgeModule, MatButtonModule, MatIconModule, MatMenuModule } from '@angular/material';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
+    MatBadgeModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
   ],
-  declarations: [HeaderComponent],
+  declarations: [
+    HeaderComponent
+  ],
   exports: [
     HeaderComponent
   ]

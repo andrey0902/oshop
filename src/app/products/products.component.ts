@@ -17,6 +17,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   categories$;
   selectCategory: string | null = null;
   cart;
+  canShowPage = null;
   private onDestroy$ = new Subject<boolean>();
   constructor(public productService: ManageDataService,
               private route: ActivatedRoute,
@@ -47,8 +48,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
         takeUntil(this.onDestroy$)
       )
       .subscribe(params => {
-         this.selectCategory = params.get('category');
-          this.filterByCategory(this.selectCategory);
+        this.selectCategory = params.get('category');
+        this.filterByCategory(this.selectCategory);
+        this.canShowPage = true;
       });
   }
 

@@ -5,8 +5,8 @@ import { HelperValidators } from '../../shared/helper-validators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
+import { MatDialog } from '@angular/material';
+import { ConfirmMatComponent } from '../../shared/confirm-mat/confirm-mat/confirm-mat.component';
 
 @Component({
   selector: 'app-product-form',
@@ -14,7 +14,7 @@ import { ConfirmComponent } from '../../shared/components/confirm/confirm.compon
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-  caterories$;
+  categories$;
   form: FormGroup;
   canReset = true;
   isUpdate = false;
@@ -22,8 +22,8 @@ export class ProductFormComponent implements OnInit {
   constructor(private manageDataService: ManageDataService,
               private route: ActivatedRoute,
               private router: Router,
-              private modalService: NgbModal) {
-    this.caterories$  = this.manageDataService.getCategoryProduct();
+              public dialog: MatDialog) {
+    this.categories$  = this.manageDataService.getCategoryProduct();
   }
 
   ngOnInit() {
@@ -113,16 +113,17 @@ export class ProductFormComponent implements OnInit {
   }
 
   openConfirm() {
-
-    const modalRef = this.modalService.open(ConfirmComponent);
-    modalRef.componentInstance.text = 'Are you sure you want to delete a product?';
-
-    modalRef.result
-      .then(v => {
-        if (v) {
-          this.deleteProduct();
+    const dialogRef = this.dialog.open(ConfirmMatComponent, {
+      data: {
+        title: 'Confirmation Modal',
+        question: 'Are you sure you want to delete a product?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteProduct();
         }
-      });
+    });
   }
 
   deleteProduct() {
