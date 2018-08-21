@@ -72,10 +72,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   getUser() {
-    // TODO: need do later
     return (user) => {
       this.profileService.setUser(user);
-      console.log('switch', user.user);
       return this.profileService.getFBUser(user.user.uid).snapshotChanges();
     };
   }

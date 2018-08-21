@@ -35,6 +35,7 @@ export class ProductFormComponent implements OnInit {
     this.route.paramMap
       .pipe(switchMap(param => {
         this.uid = param.get('uid');
+        console.log('uid', this.uid);
         if (this.uid) {
           return this.manageDataService.getProduct(this.uid);
         }

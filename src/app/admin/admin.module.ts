@@ -4,7 +4,6 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputModule } from '../shared/input/input.module';
 import { CardModule } from '../shared/components/card/card.module';
-import { ResolveDataService } from './shared/services/resolve-data.service';
 import { SearchComponent } from './search/search.component';
 import { AdminProductsComponent } from './products/admin-products.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -39,10 +38,6 @@ import { ConfirmMatModule } from '../shared/confirm-mat/confirm-mat.module';
     ProductFormComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-  ],
-
-  providers: [
-    ResolveDataService,
   ]
 })
 export class AdminModule { }

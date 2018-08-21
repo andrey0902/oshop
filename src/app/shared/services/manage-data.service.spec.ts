@@ -1,11 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ManageDataService } from '../../../shared/services/manage-data.service';
+import { ManageDataService } from './manage-data.service';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 describe('GetDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ManageDataService]
+      providers: [ManageDataService],
+      imports: [
+        AngularFireDatabaseModule
+      ]
     });
   });
 
