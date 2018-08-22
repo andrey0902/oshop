@@ -31,7 +31,7 @@ export class AuthService {
       .pipe(takeUntil(this.cancelStateChange),
         switchMap((user: any) => {
         // check exist user or not
-
+        console.log(user);
           if (!user) {
             return of(null);
           }

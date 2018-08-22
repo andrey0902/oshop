@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
-import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { User } from '../shared/models/user';
-import { skip } from 'rxjs/internal/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +31,6 @@ export class ProfileService {
   }
 
   saveUser(user: firebase.User): Promise<void> {
-    console.log('user', user);
    return this.db.object(`/users/${user.uid}`)
       .update({
         name: user.displayName,

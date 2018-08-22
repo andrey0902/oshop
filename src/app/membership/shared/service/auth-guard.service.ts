@@ -9,7 +9,7 @@ export class AuthGuardService implements CanActivate {
 
   constructor(private profileService: ProfileService) { }
 
-  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+  canActivate(): Observable<boolean> {
     return this.profileService.getObjectUser()
       .pipe(map(user => !user));
   }

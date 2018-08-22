@@ -4,7 +4,10 @@ import { LoginComponent } from './login.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../auth/auth-service.service';
 import { ProfileService } from '../../auth/profile.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
+import { ServerNonErrorModule } from '../../shared/server-error-non/server-error.module';
+import { InputModule } from '../../shared/input/input.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -16,18 +19,22 @@ describe('LoginComponent', () => {
     const spyRouter = jasmine.createSpyObj('Router', ['navigate']);
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
-      imports: [FormsModule, ReactiveFormsModule],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        ServerNonErrorModule,
+        InputModule,
+        MatIconModule,
+      ],
       providers: [
         FormBuilder,
-        ActivatedRoute,
-        {provide: AuthService, useValue: spyAuth},
-        {provide: ProfileService, useValue: spyProfile},
-        {provide: Router, useValue: spyRouter},
+        { provide: AuthService, useValue: spyAuth },
+        { provide: ProfileService, useValue: spyProfile },
+        { provide: Router, useValue: spyRouter },
       ]
     })
     .compileComponents();
-
-    component.ngOnInit();
   }));
 
   beforeEach(() => {

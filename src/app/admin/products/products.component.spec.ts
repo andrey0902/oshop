@@ -5,11 +5,10 @@ import { ManageDataService } from '../../shared/services/manage-data.service';
 import { SearchComponent } from '../search/search.component';
 import { SimpleTableModule } from '../../shared/simple-table/simple-table.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {  Router, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DummyRouterLinkDirective } from '../../shared/dummy-router-link-directive';
-import { LocationStrategy } from '@angular/common';
 import { of } from 'rxjs/index';
 import { ProductFormComponent } from '../product-form/product-form.component';
 import { InputModule } from '../../shared/input/input.module';
@@ -19,8 +18,7 @@ describe('AdminProductsComponent', () => {
   let component: AdminProductsComponent;
   let fixture: ComponentFixture<AdminProductsComponent>;
   let manageDataServiceSpy;
-  const spyRouter = jasmine.createSpyObj('Router', ['navigate', 'rootRoute']);
-  const spyActivateRouter = jasmine.createSpyObj('Router', ['paramMap', 'paramMap.pipe']);
+
   manageDataServiceSpy = jasmine.createSpyObj('ManageDataService', ['getAllProducts', 'filterByTitle']);
   manageDataServiceSpy.getAllProducts.and.returnValue(of([{
     category: 'bread',
@@ -31,7 +29,11 @@ describe('AdminProductsComponent', () => {
   }]));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminProductsComponent , SearchComponent, DummyRouterLinkDirective, ProductFormComponent],
+      declarations: [
+        AdminProductsComponent,
+        SearchComponent,
+        DummyRouterLinkDirective,
+        ProductFormComponent],
       providers: [
         { provide: ManageDataService, useValue: manageDataServiceSpy },
       ],

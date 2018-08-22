@@ -35,6 +35,7 @@ import { ShoppingCartSummaryComponent } from './shared/components/shopping-cart-
 import { HeaderModule } from './shared/header/header.module';
 import { SimpleTableModule } from './shared/simple-table/simple-table.module';
 import { ConfirmMatModule } from './shared/confirm-mat/confirm-mat.module';
+import { HeaderComponent } from './shared/test-helper/header/header.component';
 
 @NgModule({
   declarations: [

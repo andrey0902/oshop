@@ -5,7 +5,7 @@ import { HelperValidators } from '../../shared/helper-validators';
 import { switchMap, takeUntil, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ProfileService } from '../../auth/profile.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../../shared/models/user';
 
 @Component({
@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService,
               private fb: FormBuilder,
               private profileService: ProfileService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.createForm();

@@ -28,6 +28,7 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
         return of(null);
       }), takeUntil(this.onDestroy$))
       .subscribe((val: any) => {
+      console.log('orders', val);
         this.rows = val;
       });
   }

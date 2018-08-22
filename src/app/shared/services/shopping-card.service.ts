@@ -45,6 +45,7 @@ export class ShoppingCardService {
         .pipe(switchMap(cartId => {
           return this.db.object(`/shopping-carts/${cartId}`).snapshotChanges()
             .pipe(map(c => {
+              console.log('payload.val', ...c.payload.val());
               return  new ShoppingCart({ key: c.payload.key, ...c.payload.val()});
             }));
         }));

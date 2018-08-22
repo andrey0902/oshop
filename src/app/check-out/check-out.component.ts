@@ -23,7 +23,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getCart();
-    this. getUser();
+    this.getUser();
   }
 
   getUser() {
