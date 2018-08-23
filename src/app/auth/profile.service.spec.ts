@@ -12,7 +12,7 @@ describe('ProfileService', () => {
     email: 'email',
     exist: true
   });
-  const fbUser: firebase.User = {
+  const fbUser: any = {
     uid: 124,
     displayName: 'test',
     email: 'email'
@@ -40,10 +40,10 @@ describe('ProfileService', () => {
 
   it('should be return firebase object user', inject([ProfileService], (service: ProfileService) => {
 
-    service.setUser(user);
+    service.setUser(fbUser);
     service.getUser()
       .subscribe((value: any) => {
-        expect(value.name).toEqual(user.name);
+        expect(value.displayName).toEqual(fbUser.displayName);
       });
   }));
 

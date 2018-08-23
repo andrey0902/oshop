@@ -17,10 +17,10 @@ import { environment } from '../../environments/environment';
 describe('CheckOutComponent', () => {
   let component: CheckOutComponent;
   let fixture: ComponentFixture<CheckOutComponent>;
-  const shoppingCardServiceSpy =
-    jasmine.createSpyObj('ShoppingCardService', ['getCart', 'clearCart']);
+  const ShoppingCartServiceSpy =
+    jasmine.createSpyObj('ShoppingCartService', ['getCart', 'clearCart']);
 
-  shoppingCardServiceSpy.getCart.and.returnValue(new ShoppingCart({
+  ShoppingCartServiceSpy.getCart.and.returnValue(new ShoppingCart({
     key: '-ttt', items: {
       '-KrqgOLs07ZkbapP4EGi': {
         product: {

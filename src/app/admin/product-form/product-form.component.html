@@ -61,7 +61,8 @@
       </form>
     </div>
     <div class="col-12 col-md-6 ">
-      <app-card class="pre-card" [product]="form.value" [validImage]="isValidLink()"></app-card>
+      <!--<app-card class="pre-card" [product]="form.value" [validImage]="isValidLink()"></app-card>-->
+      <app-card-product class="pre-card" [product]="form.value" [showActions]="false" [validImage]="isValidLink()"> </app-card-product>
     </div>
   </div>
 </div>

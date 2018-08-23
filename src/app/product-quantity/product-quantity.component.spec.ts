@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductQuantityComponent } from './product-quantity.component';
-import { ShoppingCardService } from '../shared/services/shopping-card.service';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
+import { Product } from '../shared/models/product';
 const shoppingCart = {
   allCountProduct: 4,
   items: {
@@ -22,17 +23,17 @@ const shoppingCart = {
     return 10.5;
   },
   getQuantity(product): string | number {
-    const item = this.items[product.key];
-    return item ? item.quantity : 0;
+    return product ? 1 : 0;
   }
 };
 const product = {
-  key: '-KrqgOLs07ZkbapP4EGi'
+  key: '-KrqgOLs07ZkbapP4EGi',
+  title: 'test'
 };
 describe('ProductQuantityComponent', () => {
   let component: ProductQuantityComponent;
   let fixture: ComponentFixture<ProductQuantityComponent>;
-  const shoppingCardServiceSpy =
+  const ShoppingCartServiceSpy =
     jasmine.createSpyObj('SoppingCardService', ['addToCart', 'removeFromCart']);
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,7 +41,7 @@ describe('ProductQuantityComponent', () => {
         ProductQuantityComponent
       ],
       providers: [
-        { provide: ShoppingCardService, useValue: shoppingCardServiceSpy }
+        { provide: ShoppingCartService, useValue: ShoppingCartServiceSpy }
       ]
     })
     .compileComponents();
@@ -50,7 +51,7 @@ describe('ProductQuantityComponent', () => {
     fixture = TestBed.createComponent(ProductQuantityComponent);
     component = fixture.componentInstance;
     component.shoppingCart = shoppingCart;
-    component.product = product;
+    component.product = (product as Product);
     fixture.detectChanges();
   });
 

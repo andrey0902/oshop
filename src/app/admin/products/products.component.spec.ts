@@ -9,11 +9,11 @@ import {  Router, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DummyRouterLinkDirective } from '../../shared/dummy-router-link-directive';
-import { of } from 'rxjs/index';
+import { of } from 'rxjs';
 import { ProductFormComponent } from '../product-form/product-form.component';
 import { InputModule } from '../../shared/input/input.module';
 import { MatButtonModule, MatDialogModule } from '@angular/material';
-import { CardModule } from '../../shared/components/card/card.module';
+import { CardProductModule } from '../../card-product/card-product.module';
 describe('AdminProductsComponent', () => {
   let component: AdminProductsComponent;
   let fixture: ComponentFixture<AdminProductsComponent>;
@@ -52,7 +52,7 @@ describe('AdminProductsComponent', () => {
         ReactiveFormsModule,
         MatDialogModule,
         MatButtonModule,
-        CardModule,
+        CardProductModule,
       ]
     })
     .compileComponents();

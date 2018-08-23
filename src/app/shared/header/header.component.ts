@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AuthService } from '../../auth/auth-service.service';
 import { ProfileService } from '../../auth/profile.service';
-import { ShoppingCardService } from '../services/shopping-card.service';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 import { User } from '../models/user';
 import { takeUntil } from 'rxjs/operators';
 
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   countProduct: number;
   constructor(private authService: AuthService,
               private profile: ProfileService,
-              private shoppingCartService: ShoppingCardService) { }
+              private shoppingCartService: ShoppingCartService) { }
 
   ngOnInit() {
     this.getUser();

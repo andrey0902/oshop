@@ -6,11 +6,14 @@ import { ManageDataService } from '../../shared/services/manage-data.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatButtonModule, MatDialog, MatDialogModule } from '@angular/material';
 import { InputModule } from '../../shared/input/input.module';
-import { CardModule } from '../../shared/components/card/card.module';
 import { of } from 'rxjs';
 import { ActivatedRouteStub } from '../../shared/activated-route-stub';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LocationStrategy } from '@angular/common';
+import { CardProductModule } from '../../card-product/card-product.module';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../../../environments/environment';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 describe('ProdouctFormComponent', () => {
   let component: ProductFormComponent;
@@ -29,7 +32,9 @@ describe('ProdouctFormComponent', () => {
         MatDialogModule,
         InputModule,
         MatButtonModule,
-        CardModule,
+        CardProductModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
       ],
       providers: [
         FormBuilder,

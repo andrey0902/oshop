@@ -67,7 +67,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   sendSingUp() {
     if (this.signUp.valid) {
-      this.authService.cancelStateChange.next(true);
+      this.authService.changeStateSubscription();
       this.shoveSpinner = true;
       this.authService.signUpWithEmail(this.signUp.value)
         .pipe(takeUntil(this.onDestroy$),

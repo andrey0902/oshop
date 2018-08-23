@@ -14,7 +14,7 @@ import { User } from '../../shared/models/user';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  singIn: FormGroup;
+  signIn: FormGroup;
   shoveSpinner = false;
   hidePassword = false;
   serverError = null;
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
-    this.singIn = this.fb.group({
+    this.signIn = this.fb.group({
       email: [null, [
         Validators.required,
         Validators.maxLength(40),
@@ -47,17 +47,16 @@ export class LoginComponent implements OnInit, OnDestroy {
       ]]
     });
   }
-  sendSingUp() {
-    if (this.singIn.valid) {
-      this.authService.cancelStateChange.next(true);
+  sendSingIn() {
+    if (this.signIn.valid) {
+      this.authService.changeStateSubscription();
       this.shoveSpinner = true;
-      this.authService.loginWithEmail(this.singIn.value)
+      this.authService.loginWithEmail(this.signIn.value)
         .pipe(takeUntil(this.onDestroy$),
           switchMap(this.getUser()),
-          map((res: any) => new User(res.payload.val())))
+          map((res: any) => new User(res.payload.val()))
+        )
         .subscribe((res: any) => {
-          console.log('RESULT',
-            res);
           this.profileService.setObjectUser(res);
           this.shoveSpinner = false;
           this.router.navigate(['/']);

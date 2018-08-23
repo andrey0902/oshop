@@ -24,7 +24,7 @@ import {
 import { CardProductComponent } from './card-product/card-product.component';
 import { ListCategoriesComponent } from './list-categories/list-categories.component';
 import { StickyPositionDirective } from './shared/directives/sticky-position.directive';
-import { ShoppingCardService } from './shared/services/shopping-card.service';
+import { ShoppingCartService } from './shared/services/shopping-cart.service';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CheckOutFormComponent } from './check-out/check-out-form/check-out-form.component';
@@ -36,6 +36,7 @@ import { HeaderModule } from './shared/header/header.module';
 import { SimpleTableModule } from './shared/simple-table/simple-table.module';
 import { ConfirmMatModule } from './shared/confirm-mat/confirm-mat.module';
 import { HeaderComponent } from './shared/test-helper/header/header.component';
+import { CardProductModule } from './card-product/card-product.module';
 
 @NgModule({
   declarations: [
@@ -46,10 +47,8 @@ import { HeaderComponent } from './shared/test-helper/header/header.component';
     CheckOutComponent,
     OrderSuccesComponent,
     MyOrdersComponent,
-    CardProductComponent,
     ListCategoriesComponent,
     StickyPositionDirective,
-    ProductQuantityComponent,
     CheckOutFormComponent,
     ShoppingCartSummaryComponent,
   ],
@@ -76,11 +75,12 @@ import { HeaderComponent } from './shared/test-helper/header/header.component';
 
     SimpleTableModule,
     ConfirmMatModule,
+    CardProductModule,
   ],
   providers: [
     NgbActiveModal,
     ManageDataService,
-    ShoppingCardService,
+    ShoppingCartService,
     OrderService,
   ],
   bootstrap: [AppComponent]

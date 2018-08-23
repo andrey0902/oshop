@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewOrderComponent } from './view-order.component';
+import { MatDialogModule } from '@angular/material';
 
 describe('ViewOrderComponent', () => {
   let component: ViewOrderComponent;
@@ -8,7 +9,12 @@ describe('ViewOrderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewOrderComponent ]
+      declarations: [
+        ViewOrderComponent
+      ],
+      imports: [
+        MatDialogModule
+      ]
     })
     .compileComponents();
   }));
@@ -16,6 +22,7 @@ describe('ViewOrderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewOrderComponent);
     component = fixture.componentInstance;
+    component.data = [];
     fixture.detectChanges();
   });
 

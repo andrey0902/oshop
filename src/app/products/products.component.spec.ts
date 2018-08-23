@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductsComponent } from './products.component';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs/index';
+import { of } from 'rxjs';
 import { ManageDataService } from '../shared/services/manage-data.service';
-import { ShoppingCardService } from '../shared/services/shopping-card.service';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 import {
   MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule, MatListModule, MatProgressSpinnerModule
 } from '@angular/material';
@@ -13,7 +13,7 @@ import { CardProductComponent } from '../card-product/card-product.component';
 import { StickyPositionDirective } from '../shared/directives/sticky-position.directive';
 import { ProductQuantityComponent } from '../product-quantity/product-quantity.component';
 
-describe('ProductsComponent', () => {
+describe('ProductsComponent common', () => {
   let component: ProductsComponent;
   let fixture: ComponentFixture<ProductsComponent>;
   const params = {
@@ -64,9 +64,9 @@ describe('ProductsComponent', () => {
   manageDataServiceSpy.getAllProducts.and.returnValue(of(products));
   manageDataServiceSpy.getCategoryProduct.and.returnValue(of(categories));
 
-  const shoppingCardServiceSpy =
-    jasmine.createSpyObj('ShoppingCardService', ['getCart']);
-  shoppingCardServiceSpy.getCart.and.returnValue(of(shoppingCart));
+  const ShoppingCartServiceSpy =
+    jasmine.createSpyObj('ShoppingCartService', ['getCart']);
+  ShoppingCartServiceSpy.getCart.and.returnValue(of(shoppingCart));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -80,7 +80,7 @@ describe('ProductsComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activateRouteSpy },
         { provide: ManageDataService, useValue: manageDataServiceSpy },
-        { provide: ShoppingCardService, useValue: shoppingCardServiceSpy },
+        { provide: ShoppingCartService, useValue: ShoppingCartServiceSpy },
       ],
       imports: [
         MatProgressSpinnerModule,

@@ -1,16 +1,19 @@
 <mat-card class="card-product">
   <mat-card-header>
     <div mat-card-avatar class="header-wrap-img" >
-      <img class="header-img"  [src]="product.imageUrl" alt="Product img">
+      <img class="header-img"  [src]=" (validImage && product.imageUrl) ? product.imageUrl : 'assets/images/blank.jpg'" alt="Product img">
     </div>
-    <mat-card-title>{{product.title}}</mat-card-title>
+    <mat-card-title>{{product.title || '-' }}</mat-card-title>
     <mat-card-subtitle>&nbsp;</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image class="product-img" [src]="product.imageUrl" alt="Product img">
+  <img mat-card-image class="product-img" [src]=" (validImage && product.imageUrl) ? product.imageUrl : 'assets/images/blank.jpg'" alt="Product img">
   <mat-card-content>
     <p>
-      <span>Price: {{product.price | currency}}</span>
+      <span>Price: {{ product.price ? (product.price | currency)  : '-'}}</span>
     </p>
+    <p *ngIf="!showActions"
+      class="card-text">
+      Category: <span class="cat">{{product.category || '-'}}</span></p>
   </mat-card-content>
   <mat-card-actions>
     <div class="wrapper-action" *ngIf="showActions && shoppingCart">

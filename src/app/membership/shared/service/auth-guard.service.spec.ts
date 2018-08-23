@@ -3,7 +3,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { AuthGuardService } from './auth-guard.service';
 import { ProfileService } from '../../../auth/profile.service';
 import { of } from 'rxjs/index';
-const profileServiceSpy: jasmine.createSpyObj<ProfileService> =
+const profileServiceSpy =
   jasmine.createSpyObj('ProfileService', ['getObjectUser']);
 
 function config (exist) {

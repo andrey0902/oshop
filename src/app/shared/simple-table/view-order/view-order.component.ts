@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
@@ -8,8 +8,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 })
 export class ViewOrderComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<ViewOrderComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) { }
+  constructor(@Optional() public dialogRef: MatDialogRef<ViewOrderComponent>,
+              @Optional() @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit() {
   }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../shared/models/product';
 
-import { ShoppingCardService } from '../shared/services/shopping-card.service';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 
 @Component({
   selector: 'app-card-product',
@@ -12,7 +12,8 @@ export class CardProductComponent implements OnInit {
   @Input() product: Product;
   @Input('shoppingCart') shoppingCart;
   @Input('showActions') showActions = true;
-  constructor(private cartService: ShoppingCardService) { }
+  @Input() validImage = true;
+  constructor(private cartService: ShoppingCartService) { }
 
   ngOnInit() {
     console.log(this.shoppingCart);

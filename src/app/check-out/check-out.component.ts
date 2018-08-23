@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ShoppingCardService } from '../shared/services/shopping-card.service';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { OrderService } from '../shared/services/order.service';
@@ -16,7 +16,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
   onDestroy$ = new Subject();
   cart;
   userUid;
-  constructor(private shoppingCartService: ShoppingCardService,
+  constructor(private shoppingCartService: ShoppingCartService,
               private orderService: OrderService,
               private profileService: ProfileService,
               private router: Router) { }

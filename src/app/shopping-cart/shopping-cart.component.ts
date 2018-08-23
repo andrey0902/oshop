@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ShoppingCardService } from '../shared/services/shopping-card.service';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 import { MatDialog } from '@angular/material';
 import { Subject } from 'rxjs/index';
 import { ConfirmMatComponent } from '../shared/confirm-mat/confirm-mat/confirm-mat.component';
@@ -13,7 +13,7 @@ import { takeUntil } from 'rxjs/internal/operators';
 export class ShoppingCartComponent implements OnInit, OnDestroy {
   cart$;
   onDestroy$ = new Subject<boolean>();
-  constructor(private shoppingCartService: ShoppingCardService,
+  constructor(private shoppingCartService: ShoppingCartService,
               public dialog: MatDialog) { }
 
   ngOnInit() {

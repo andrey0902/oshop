@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import {  switchMap, tap } from 'rxjs/operators';
-import { ShoppingCardService } from '../shared/services/shopping-card.service';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 
 @Component({
   selector: 'app-products',
@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<boolean>();
   constructor(public productService: ManageDataService,
               private route: ActivatedRoute,
-              public shoppingService: ShoppingCardService) { }
+              public shoppingService: ShoppingCartService) { }
 
   ngOnInit() {
     this.getCategories();

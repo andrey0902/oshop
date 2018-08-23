@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MyOrdersComponent } from './my-orders.component';
 import { SimpleTableModule } from '../shared/simple-table/simple-table.module';
-import { of } from 'rxjs/index';
+import { of } from 'rxjs';
 import { ProfileService } from '../auth/profile.service';
 import { OrderService } from '../shared/services/order.service';
 

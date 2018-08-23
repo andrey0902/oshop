@@ -26,6 +26,10 @@ export class AuthService {
      this.checkChangeUser();
   }
 
+  changeStateSubscription() {
+    this.cancelStateChange.next(true);
+  }
+
   checkChangeUser() {
    return this.afAuth.authState
       .pipe(takeUntil(this.cancelStateChange),

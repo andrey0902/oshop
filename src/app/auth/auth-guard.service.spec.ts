@@ -1,9 +1,9 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { AuthGuard } from './auth-guard.service';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
+
 let authGuardSpy;
 let authState;
 const config = (flag) => {

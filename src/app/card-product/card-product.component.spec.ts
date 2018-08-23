@@ -2,15 +2,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardProductComponent } from './card-product.component';
 import { MatCardModule } from '@angular/material';
-import { ShoppingCardService } from '../shared/services/shopping-card.service';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 import { ProductQuantityComponent } from '../product-quantity/product-quantity.component';
 import { Product } from '../shared/models/product';
 
 describe('CardProductComponent', () => {
   let component: CardProductComponent;
   let fixture: ComponentFixture<CardProductComponent>;
-  const shoppingCardServiceSpy =
-    jasmine.createSpyObj('ShoppingCardService', ['addToCart']);
+  const ShoppingCartServiceSpy =
+    jasmine.createSpyObj('ShoppingCartService', ['addToCart']);
 
   const product: Product = {
     title: 'test',
@@ -20,17 +20,22 @@ describe('CardProductComponent', () => {
     key: '-tt',
     $key: '-bb'
   };
+  const shoppingCart = {
+    getQuantity(val) {
+      return 0;
+    }
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         CardProductComponent,
-        ProductQuantityComponent
+         ProductQuantityComponent
       ],
       imports: [
         MatCardModule
       ],
       providers: [
-        { provide: ShoppingCardService, useValue: shoppingCardServiceSpy }
+        { provide: ShoppingCartService, useValue: ShoppingCartServiceSpy }
       ]
     })
     .compileComponents();
@@ -40,6 +45,7 @@ describe('CardProductComponent', () => {
     fixture = TestBed.createComponent(CardProductComponent);
     component = fixture.componentInstance;
     component.product = product;
+    component.shoppingCart = shoppingCart;
     fixture.detectChanges();
   });
 

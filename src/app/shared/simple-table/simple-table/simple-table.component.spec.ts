@@ -1,14 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SimpleTableComponent } from './simple-table.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { MatDialog, MatDialogModule } from '@angular/material';
+import { ViewOrderComponent } from '../view-order/view-order.component';
 
 describe('SimpleTableComponent', () => {
   let component: SimpleTableComponent;
   let fixture: ComponentFixture<SimpleTableComponent>;
 
   beforeEach(async(() => {
+    const matDialogSpy =
+      jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
-      declarations: [ SimpleTableComponent ]
+      declarations: [
+        SimpleTableComponent,
+        ViewOrderComponent,
+      ],
+      imports: [
+        NgxDatatableModule,
+        MatDialogModule,
+      ],
+      providers: [
+        { provide: MatDialog, useValue: matDialogSpy }
+      ]
     })
     .compileComponents();
   }));
