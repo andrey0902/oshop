@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConfirmMatComponent } from './confirm-mat.component';
 import { MatButtonModule, MatDialogModule, MatDialogRef } from '@angular/material';
+import { Subject } from 'rxjs/index';
 
 describe('ConfirmMatComponent', () => {
   let component: ConfirmMatComponent;
@@ -10,6 +11,7 @@ describe('ConfirmMatComponent', () => {
     title: 'test question',
     question: 'Are you sure?'
   };
+  const afterCloset = new Subject();
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -21,7 +23,7 @@ describe('ConfirmMatComponent', () => {
         MatDialogModule
       ],
       providers: [
-        {provide: MatDialogRef, useValue: {close() {return null; }}}
+        {provide: MatDialogRef, useValue: {close(val) { afterCloset.next(val); }}}
       ]
     })
     .compileComponents();
@@ -36,5 +38,12 @@ describe('ConfirmMatComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should call close', () => {
+    const resultClosed = 'test';
+    component.closed(resultClosed);
+    afterCloset.subscribe((res) => {
+      expect(res).toBe(resultClosed);
+    });
   });
 });

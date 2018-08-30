@@ -15,7 +15,7 @@ export class ShoppingCartSummaryComponent implements OnInit {
   }
 
   allPrice(product) {
-    // console.log(product);
+    console.log('PRODUCT', product);
     return product.product.price * product.quantity;
   }
 

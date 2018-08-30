@@ -62,5 +62,15 @@ describe('MyOrdersComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('getMyOrders', () => {
+    beforeEach(() => {
+      profileServiceSpy.getUser.and.returnValue(of(null));
+    });
+    it('Should be return null when no user', () => {
+      component.getMyOrders();
+      expect(component.rows).toBeNull();
+    });
+  });
 });
 

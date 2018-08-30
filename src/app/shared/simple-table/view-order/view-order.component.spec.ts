@@ -29,4 +29,10 @@ describe('ViewOrderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should return total order', () => {
+    const totalPrice = 5;
+    component.data = [{ totalPrice }];
+    expect(component.getTotalOrder()).toBe(totalPrice);
+  });
 });

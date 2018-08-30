@@ -10,7 +10,6 @@ export class ListCategoriesComponent implements OnInit {
   @Input() categories$;
   @Input() selectCategory;
 
-  // TODO: after fixed router need apply router satate for selected chosen category
   constructor(private router: Router) { }
 
   ngOnInit() {

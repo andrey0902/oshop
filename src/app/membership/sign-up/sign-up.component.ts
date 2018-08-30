@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperValidators } from '../../shared/helper-validators';
 import { AuthService } from '../../auth/auth-service.service';
-import { Subject } from 'rxjs/index';
-import { switchMap, takeUntil } from 'rxjs/internal/operators';
+import { from, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { ProfileService } from '../../auth/profile.service';
 import { Router } from '@angular/router';
 
@@ -71,9 +71,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
       this.shoveSpinner = true;
       this.authService.signUpWithEmail(this.signUp.value)
         .pipe(takeUntil(this.onDestroy$),
-          switchMap(this.placeUser()))
+          switchMap(this.placeUser())
+        )
         .subscribe((res: any) => {
-
           this.shoveSpinner = false;
           this.router.navigate(['/auth/login']);
 
@@ -88,7 +88,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   placeUser() {
     return (user: any) => {
       this.signUp.value['uid'] = user.user.uid;
-      return this.profileService.saveUser(this.signUp.value);
+      return from (this.profileService.saveUser(this.signUp.value));
     };
   }
 

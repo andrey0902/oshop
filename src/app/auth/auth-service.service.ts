@@ -9,8 +9,7 @@ import { SessionService } from './session.service';
 import { switchMap } from 'rxjs/operators';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { User } from '../shared/models/user';
-import { map, take } from 'rxjs/internal/operators';
-
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +17,7 @@ import { map, take } from 'rxjs/internal/operators';
 export class AuthService {
   cancelStateChange = new Subject();
   redirectUrl = null;
+  sessionService = SessionService;
   constructor(private afAuth: AngularFireAuth,
               private profile: ProfileService,
               private router: Router,
@@ -35,7 +35,6 @@ export class AuthService {
       .pipe(takeUntil(this.cancelStateChange),
         switchMap((user: any) => {
         // check exist user or not
-        console.log(user);
           if (!user) {
             return of(null);
           }
@@ -69,7 +68,7 @@ export class AuthService {
   }
 
   redirectUser() {
-    const url  = SessionService.getReturnUrl() || this.redirectUrl;
+    const url  = this.sessionService.getReturnUrl() || this.redirectUrl;
     SessionService.setReturnUrl(null);
     if (url) {
       this.router.navigate([url]);
@@ -77,13 +76,13 @@ export class AuthService {
   }
 
 
-  setObjectUser(user: fireBase.User) {
-    this.profile.setObjectUser(null);
+  setObjectUser(user) {
+    this.profile.setObjectUser(user);
   }
 
   loginG() {
     this.setReturnUrl();
-   this.afAuth.auth.signInWithRedirect(
+    return this.afAuth.auth.signInWithRedirect(
       new fireBase.auth.GoogleAuthProvider()
     );
   }
@@ -103,7 +102,7 @@ export class AuthService {
 
   public setReturnUrl() {
    const url = this.route.snapshot.queryParamMap.get('returnUrl');
-    SessionService.setReturnUrl(url || '/');
+    this.sessionService.setReturnUrl(url || '/');
   }
 
   getUserForGuard$ () {

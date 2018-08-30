@@ -6,6 +6,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 let authGuardSpy;
 let authState;
+const state = {
+  url: 'test'
+};
 const config = (flag) => {
    authGuardSpy = jasmine.createSpyObj('Router', ['navigate']);
   // An anonymous user
@@ -48,25 +51,24 @@ describe('AuthGuardService', () => {
     beforeEach(() => {
       config(true);
     });
-    it('Then canActivate return true', () => {
-
-    });
+    it('Then canActivate return true', inject([AuthGuard], (service: AuthGuard) => {
+      service.canActivate(null, state)
+        .subscribe(val => {
+          expect(val).toBeTruthy();
+        });
+    }));
   });
 
   describe('When not exist user', () => {
     beforeEach(() => {
       config(false);
     });
-    it('Then canActivate return false', () => {
-
-    });
-
-    it('Then canActivate call router navigate', () => {
-
-    });
+    it('Then canActivate return false', inject([AuthGuard], (service: AuthGuard) => {
+      service.canActivate(null, state)
+        .subscribe(val => {
+          expect(val).toBeFalsy();
+        });
+    }));
   });
-
-
-
 
 });

@@ -121,4 +121,10 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  it('should be call logout method fo the service', () => {
+    component.logout();
+    expect(authServiceSpy.logout.calls.count()).toBe(1);
+  });
 });

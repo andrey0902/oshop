@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductQuantityComponent } from './product-quantity.component';
 import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 import { Product } from '../shared/models/product';
+import { mockProduct } from '../shared/test-helper/mockData';
 const shoppingCart = {
   allCountProduct: 4,
   items: {
@@ -26,14 +27,11 @@ const shoppingCart = {
     return product ? 1 : 0;
   }
 };
-const product = {
-  key: '-KrqgOLs07ZkbapP4EGi',
-  title: 'test'
-};
+const product = mockProduct;
 describe('ProductQuantityComponent', () => {
   let component: ProductQuantityComponent;
   let fixture: ComponentFixture<ProductQuantityComponent>;
-  const ShoppingCartServiceSpy =
+  const shoppingCartServiceSpy =
     jasmine.createSpyObj('SoppingCardService', ['addToCart', 'removeFromCart']);
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -41,7 +39,7 @@ describe('ProductQuantityComponent', () => {
         ProductQuantityComponent
       ],
       providers: [
-        { provide: ShoppingCartService, useValue: ShoppingCartServiceSpy }
+        { provide: ShoppingCartService, useValue: shoppingCartServiceSpy }
       ]
     })
     .compileComponents();
@@ -57,5 +55,13 @@ describe('ProductQuantityComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should call addToCart method', () => {
+    component.addToCart();
+    expect(shoppingCartServiceSpy.addToCart.calls.count()).toBe(1);
+  });
+  it('should call removeFromCart method', () => {
+    component.removeFromCart();
+    expect(shoppingCartServiceSpy.removeFromCart.calls.count()).toBe(1);
   });
 });

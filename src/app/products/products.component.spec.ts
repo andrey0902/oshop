@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductsComponent } from './products.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { ManageDataService } from '../shared/services/manage-data.service';
 import { ShoppingCartService } from '../shared/services/shopping-cart.service';
@@ -12,12 +12,13 @@ import { ListCategoriesComponent } from '../list-categories/list-categories.comp
 import { CardProductComponent } from '../card-product/card-product.component';
 import { StickyPositionDirective } from '../shared/directives/sticky-position.directive';
 import { ProductQuantityComponent } from '../product-quantity/product-quantity.component';
+import { mockProduct } from '../shared/test-helper/mockData';
 
 describe('ProductsComponent common', () => {
   let component: ProductsComponent;
   let fixture: ComponentFixture<ProductsComponent>;
   const params = {
-    get(param) {
+   get(param) {
       return 'vegetables';
     }
   };
@@ -59,14 +60,18 @@ describe('ProductsComponent common', () => {
   const manageDataServiceSpy =
     jasmine.createSpyObj('ManageDataService', [
       'getAllProducts',
-      'getCategoryProduct'
+      'getCategoryProduct',
+      'filterByCategory'
     ]);
   manageDataServiceSpy.getAllProducts.and.returnValue(of(products));
   manageDataServiceSpy.getCategoryProduct.and.returnValue(of(categories));
+  manageDataServiceSpy.filterByCategory.and.returnValue([]);
 
   const ShoppingCartServiceSpy =
     jasmine.createSpyObj('ShoppingCartService', ['getCart']);
   ShoppingCartServiceSpy.getCart.and.returnValue(of(shoppingCart));
+
+  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -78,9 +83,12 @@ describe('ProductsComponent common', () => {
         ProductQuantityComponent,
       ],
       providers: [
-        { provide: ActivatedRoute, useValue: activateRouteSpy },
+        { provide: ActivatedRoute, useValue: {get queryParamMap() {
+          return of({get() {return 'vegetables'; }});
+        }} },
         { provide: ManageDataService, useValue: manageDataServiceSpy },
         { provide: ShoppingCartService, useValue: ShoppingCartServiceSpy },
+        { provide: Router, useValue: routerSpy }
       ],
       imports: [
         MatProgressSpinnerModule,
@@ -102,5 +110,11 @@ describe('ProductsComponent common', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should return not change products', () => {
+    component.products = [mockProduct];
+    component.filterByCategory(null);
+    expect(component.filterProducts.length).toBe(1);
   });
 });

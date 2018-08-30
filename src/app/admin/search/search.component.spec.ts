@@ -27,4 +27,13 @@ describe('SearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Should be return set value', async(() => {
+    const str = 'test';
+    component.valueChange();
+    component.changeSearch.subscribe((val: any) => {
+      expect(val).toBe(str);
+    });
+    component.control.setValue(str);
+  }));
 });

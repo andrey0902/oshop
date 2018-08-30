@@ -42,7 +42,7 @@ export class CheckOutFormComponent implements OnInit {
   }
 
   placeOrder() {
-    if (this.checkoutForm.value) {
+    if (this.checkoutForm.valid) {
       this.saveOrder.emit(this.checkoutForm.value);
       }
     }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
@@ -6,13 +6,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
   templateUrl: './view-order.component.html',
   styleUrls: ['./view-order.component.scss']
 })
-export class ViewOrderComponent implements OnInit {
+export class ViewOrderComponent {
 
   constructor(@Optional() public dialogRef: MatDialogRef<ViewOrderComponent>,
               @Optional() @Inject(MAT_DIALOG_DATA) public data) { }
-
-  ngOnInit() {
-  }
 
   getTotalOrder() {
     let total = 0;

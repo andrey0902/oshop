@@ -27,7 +27,6 @@ export class ProfileService {
 
   setUser(user: firebase.User) {
     this._user$.next(user);
-    // ToDo: need save to session storage and locale storage
   }
 
   saveUser(user: firebase.User): Promise<void> {

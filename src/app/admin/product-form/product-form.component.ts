@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ManageDataService } from '../../shared/services/manage-data.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperValidators } from '../../shared/helper-validators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { ConfirmMatComponent } from '../../shared/confirm-mat/confirm-mat/confirm-mat.component';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnDestroy {
   categories$;
+  onDestroy$ = new Subject();
   form: FormGroup;
   canReset = true;
   isUpdate = false;
@@ -31,11 +33,14 @@ export class ProductFormComponent implements OnInit {
     this. getProductUid();
   }
 
+  ngOnDestroy() {
+    this.onDestroy$.next(true);
+  }
+
   getProductUid() {
     this.route.paramMap
       .pipe(switchMap(param => {
         this.uid = param.get('uid');
-        console.log('uid', this.uid);
         if (this.uid) {
           return this.manageDataService.getProduct(this.uid);
         }
@@ -83,7 +88,6 @@ export class ProductFormComponent implements OnInit {
 
   saveProduct(form: FormGroup) {
     if (form.valid) {
-      console.log(form.value);
       this.isSelectedSave(this.uid, form.value);
     }
   }
@@ -110,7 +114,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   isValidLink(): boolean {
-   return !(this.form.get('imageUrl') as FormControl).hasError('patternUrl');
+    return !(this.form.get('imageUrl') as FormControl).hasError('patternUrl');
   }
 
   openConfirm() {
@@ -120,7 +124,10 @@ export class ProductFormComponent implements OnInit {
         question: 'Are you sure you want to delete a product?'
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
+
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(result => {
       if (result) {
         this.deleteProduct();
         }

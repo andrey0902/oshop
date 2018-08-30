@@ -30,7 +30,6 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     this.profileService.getUser()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(user => {
-        console.log('USER', user);
         this.userUid = user.uid;
       });
   }
@@ -51,7 +50,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     this.orderService.storeOrder(order)
       .pipe(takeUntil(this.onDestroy$),
         switchMap((result: any) => {
-          this.router.navigate(['/order-success/', result.key]);
+          this.router.navigate(['order-success/', result.key]);
           return this.shoppingCartService.clearCart();
         }))
       .subscribe();

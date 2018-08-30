@@ -17,8 +17,6 @@ export class SimpleTableComponent implements OnInit {
   openModal(items) {
     this.dialog.open(ViewOrderComponent, {
       data: items,
-      // height: '400px',
-      // width: '600px',
     });
   }
 }

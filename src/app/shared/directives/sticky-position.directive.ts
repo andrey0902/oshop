@@ -24,7 +24,7 @@ export class StickyPositionDirective implements OnInit {
   @HostListener('window:resize')
   public resize() {
     this.initialize();
-
+    console.log('this.canDo', this.canDo);
     if (this.canDo) {
       this.reinitialization();
     }

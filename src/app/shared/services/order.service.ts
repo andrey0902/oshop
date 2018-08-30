@@ -21,6 +21,7 @@ export class OrderService {
   getOrders() {
     return this.connect.valueChanges()
       .pipe(map((val: any) => {
+        console.log('getOrders', val);
         return this.prepareData(val);
       }));
   }

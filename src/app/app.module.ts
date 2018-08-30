@@ -21,11 +21,9 @@ import {
    MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule, MatDividerModule, MatListModule,
   MatProgressSpinnerModule
 } from '@angular/material';
-import { CardProductComponent } from './card-product/card-product.component';
 import { ListCategoriesComponent } from './list-categories/list-categories.component';
 import { StickyPositionDirective } from './shared/directives/sticky-position.directive';
 import { ShoppingCartService } from './shared/services/shopping-cart.service';
-import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CheckOutFormComponent } from './check-out/check-out-form/check-out-form.component';
 import {  InputModule } from './shared/input/input.module';
@@ -35,7 +33,6 @@ import { ShoppingCartSummaryComponent } from './shared/components/shopping-cart-
 import { HeaderModule } from './shared/header/header.module';
 import { SimpleTableModule } from './shared/simple-table/simple-table.module';
 import { ConfirmMatModule } from './shared/confirm-mat/confirm-mat.module';
-import { HeaderComponent } from './shared/test-helper/header/header.component';
 import { CardProductModule } from './card-product/card-product.module';
 
 @NgModule({

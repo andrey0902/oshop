@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignUpComponent } from './sign-up.component';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputModule } from '../../shared/input/input.module';
 import { MatButtonModule, MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import { ServerNonErrorModule } from '../../shared/server-error-non/server-error.module';
@@ -119,6 +119,10 @@ describe('SignUpComponent', () => {
   it('Should call loginWithEmail after click submit button and valid state form', () => {
 
     setFormValue(true);
+    component.placeUser()({user: {uid: 1}}).subscribe(val => {
+      console.log('usuer 4444', val);
+    })
+    component.signUp.value['uid'] = 1;
     component.sendSingUp();
     fixture.detectChanges();
     expect(authServiceSpy.signUpWithEmail.calls.count()).toBe(1);
@@ -126,17 +130,17 @@ describe('SignUpComponent', () => {
 
   describe('Should be return error', () => {
     beforeEach(() => {
-      profileServiceSpy.saveUser.and.returnValue(throwError('This is an error!'));
+      profileServiceSpy.saveUser.and.returnValue(throwError({message: 'This is an error!'}));
     });
 
     it('Throw error from login method', () => {
-
+     const spy = spyOn(component, 'placeUser').and.returnValue(throwError({message: 'This is an error!'}));
       setFormValue(true);
       expect(component.signUp.valid).toBeTruthy();
       component.sendSingUp();
       fixture.detectChanges();
       expect(component.shoveSpinner).toBeFalsy();
-      expect(spyRouter.navigate).not.toHaveBeenCalled();
+      expect(spyRouter.navigate.calls.count()).toEqual(1);
     });
   });
 });

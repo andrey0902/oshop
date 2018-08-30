@@ -46,7 +46,4 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  checkOut() {
-
-  }
 }

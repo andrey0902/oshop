@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ManageDataService } from '../shared/services/manage-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import {  switchMap, tap } from 'rxjs/operators';
+import {  switchMap, tap, takeUntil } from 'rxjs/operators';
 import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 
 @Component({

@@ -4,22 +4,15 @@ import { CardProductComponent } from './card-product.component';
 import { MatCardModule } from '@angular/material';
 import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 import { ProductQuantityComponent } from '../product-quantity/product-quantity.component';
-import { Product } from '../shared/models/product';
+import { mockProduct } from '../shared/test-helper/mockData';
 
 describe('CardProductComponent', () => {
   let component: CardProductComponent;
   let fixture: ComponentFixture<CardProductComponent>;
-  const ShoppingCartServiceSpy =
+  const shoppingCartServiceSpy =
     jasmine.createSpyObj('ShoppingCartService', ['addToCart']);
 
-  const product: Product = {
-    title: 'test',
-    price: '55',
-    category: 'test',
-    imageUrl: 'http://test',
-    key: '-tt',
-    $key: '-bb'
-  };
+  const product = mockProduct;
   const shoppingCart = {
     getQuantity(val) {
       return 0;
@@ -35,7 +28,7 @@ describe('CardProductComponent', () => {
         MatCardModule
       ],
       providers: [
-        { provide: ShoppingCartService, useValue: ShoppingCartServiceSpy }
+        { provide: ShoppingCartService, useValue: shoppingCartServiceSpy }
       ]
     })
     .compileComponents();
@@ -51,5 +44,10 @@ describe('CardProductComponent', () => {
 
   it('should create mat cart component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Should be call method addToCart of the service', () => {
+    component.addToCart();
+    expect(shoppingCartServiceSpy.addToCart.calls.count()).toBe(1);
   });
 });

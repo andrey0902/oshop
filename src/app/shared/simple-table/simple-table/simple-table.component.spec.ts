@@ -8,10 +8,10 @@ import { ViewOrderComponent } from '../view-order/view-order.component';
 describe('SimpleTableComponent', () => {
   let component: SimpleTableComponent;
   let fixture: ComponentFixture<SimpleTableComponent>;
-
+  let matDialogSpy;
   beforeEach(async(() => {
-    const matDialogSpy =
-      jasmine.createSpyObj('MatDialog', ['open']);
+    matDialogSpy = jasmine.createSpyObj('MatDialog',
+      ['open']);
     TestBed.configureTestingModule({
       declarations: [
         SimpleTableComponent,
@@ -36,5 +36,10 @@ describe('SimpleTableComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Should call dialog.open method', () => {
+    component.openModal({});
+    expect(matDialogSpy.open.calls.count()).toBe(1);
   });
 });

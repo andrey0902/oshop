@@ -9,6 +9,7 @@ import { of } from 'rxjs/index';
 describe('ListCategoriesComponent', () => {
   let component: ListCategoriesComponent;
   let fixture: ComponentFixture<ListCategoriesComponent>;
+  const isSelected = 1;
   const routerSpy =
     jasmine.createSpyObj('Router', ['navigate']);
   const categories$ = of([
@@ -39,5 +40,29 @@ describe('ListCategoriesComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set select category', () => {
+    component.selected(isSelected);
+    expect(component.selectCategory).toBe(1);
+  });
+
+  it('should set select category to the null if select matches', () => {
+    component.selected(isSelected);
+    expect(component.selectCategory).toBe(1);
+    component.selected(isSelected);
+    expect(component.selectCategory).toBeNull();
+  });
+  it('should set select category to the null if select not matches', () => {
+    component.selected(isSelected);
+    expect(component.selectCategory).toBe(1);
+    component.selected(55);
+    expect(component.selectCategory).toBe(55);
+  });
+  it('should set select category to the null if select not matches', () => {
+    routerSpy.navigate.calls.reset();
+    component.selected(isSelected);
+    expect(component.selectCategory).toBe(1);
+    expect(routerSpy.navigate.calls.count()).toBe(1);
   });
 });

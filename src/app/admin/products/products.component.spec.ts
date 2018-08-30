@@ -14,6 +14,7 @@ import { ProductFormComponent } from '../product-form/product-form.component';
 import { InputModule } from '../../shared/input/input.module';
 import { MatButtonModule, MatDialogModule } from '@angular/material';
 import { CardProductModule } from '../../card-product/card-product.module';
+import { mockProduct } from '../../shared/test-helper/mockData';
 describe('AdminProductsComponent', () => {
   let component: AdminProductsComponent;
   let fixture: ComponentFixture<AdminProductsComponent>;
@@ -27,6 +28,7 @@ describe('AdminProductsComponent', () => {
     price: 3,
     title : 'Freshly Baked Bread'
   }]));
+  manageDataServiceSpy.filterByTitle.and.returnValue([1]);
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -66,5 +68,17 @@ describe('AdminProductsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Should do filter of the array product', () => {
+    component.products = [mockProduct, mockProduct];
+    component.filter(1);
+    expect(component.filterProducts.length).toBe(1);
+  });
+
+  it('Should don"t filter of the array product', () => {
+    component.products = [mockProduct, mockProduct];
+    component.filter(false);
+    expect(component.products.length).toBe(2);
   });
 });
