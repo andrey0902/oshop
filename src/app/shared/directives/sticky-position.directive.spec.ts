@@ -5,7 +5,7 @@ import { ListCategoriesComponent } from '../../list-categories/list-categories.c
 import { Router } from '@angular/router';
 import { MatListModule } from '@angular/material';
 import { of } from 'rxjs';
-import { searchStyle } from '../test-helper/mockData';
+import { getStyle, searchStyle } from '../test-helper/mockData';
 
 describe('TestDirective', () => {
   let component: ListCategoriesComponent;
@@ -43,7 +43,7 @@ describe('TestDirective', () => {
   it('should be set offset', () => {
     directive.startPosition = 1;
     directive['setOffsetElement'](10);
-    expect(searchStyle('transform')).toContain('9');
+    expect(getStyle(listElement.nativeElement, 'transform')).toContain('9');
   });
 
   it('should add class move', () => {

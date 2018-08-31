@@ -11,7 +11,7 @@ import { ShoppingCart } from '../models/shopping-cart';
   providedIn: 'root'
 })
 export class ShoppingCartService {
-
+  sessionService = SessionService;
   constructor(private db: AngularFireDatabase) {
   }
 
@@ -57,13 +57,13 @@ export class ShoppingCartService {
   }
 
   private getOrCreateCartId(): Observable<string> {
-    const cartId = SessionService.getCartId();
+    const cartId = this.sessionService.getCartId();
     if (cartId) {
       return of(cartId);
     }
 
     return this.create()
-      .pipe(tap((result => SessionService.setCartId(result.key)),
+      .pipe(tap((result => this.sessionService.setCartId(result.key)),
         switchMap((result: any) => {
           return of(result.key);
         })));

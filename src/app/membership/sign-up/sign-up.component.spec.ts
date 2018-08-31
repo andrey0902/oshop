@@ -120,7 +120,6 @@ describe('SignUpComponent', () => {
 
     setFormValue(true);
     component.placeUser()({user: {uid: 1}}).subscribe(val => {
-      console.log('usuer 4444', val);
     })
     component.signUp.value['uid'] = 1;
     component.sendSingUp();

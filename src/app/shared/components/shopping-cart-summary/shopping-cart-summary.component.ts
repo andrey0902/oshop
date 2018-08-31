@@ -6,16 +6,11 @@ import { ShoppingCart } from '../../models/shopping-cart';
   templateUrl: './shopping-cart-summary.component.html',
   styleUrls: ['./shopping-cart-summary.component.scss']
 })
-export class ShoppingCartSummaryComponent implements OnInit {
+export class ShoppingCartSummaryComponent {
   @Input() cart: ShoppingCart;
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.cart);
-  }
-
   allPrice(product) {
-    console.log('PRODUCT', product);
     return product.product.price * product.quantity;
   }
 

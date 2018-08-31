@@ -25,8 +25,6 @@ export class ErrorComponent implements OnInit, OnChanges {
   }
 
   public fieldError(name) {
-    console.log(this.errorName);
-    console.log(this.errors);
     if (this.errors[name] && this.errors[name][0]) {
       this.error = this.errors[name][0];
       setTimeout(() => {

@@ -1,27 +1,23 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 import { OrderService } from './order.service';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { formData, successPromise } from '../test-helper/mockData';
+import { formData, mockOrder, successPromise } from '../test-helper/mockData';
 import { of } from 'rxjs';
 
-fdescribe('OrderService', () => {
-  const angularFireDatabaseSpy =
-    jasmine.createSpyObj('AngularFireDatabase', ['list', 'object']);
+describe('OrderService', () => {
+  const angularFireDatabaseSpy = jasmine.createSpyObj('AngularFireDatabase', ['list', 'object']);
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        OrderService,
-        { provide: AngularFireDatabase, useValue: angularFireDatabaseSpy }
-      ]
+      providers: [OrderService, {provide: AngularFireDatabase, useValue: angularFireDatabaseSpy}]
     });
   });
 
-  fit('should be created', inject([OrderService], (service: OrderService) => {
+  it('should be created', inject([OrderService], (service: OrderService) => {
     expect(service).toBeTruthy();
   }));
 
-  fit('storeOrder should be return order', inject([OrderService], (service: OrderService) => {
+  it('storeOrder should be return order', inject([OrderService], (service: OrderService) => {
     service.connect = {
       push() {
         return successPromise;
@@ -33,7 +29,7 @@ fdescribe('OrderService', () => {
       });
   }));
 
-  fit('getOrders should be return order', inject([OrderService], (service: OrderService) => {
+  it('getOrders should be return order', inject([OrderService], (service: OrderService) => {
     service.connect = {
       valueChanges() {
         return of([{items: []}, {items: []}]);
@@ -45,15 +41,14 @@ fdescribe('OrderService', () => {
       });
   }));
 
-  fit('getOrdersByUser should be return order', inject([OrderService], (service: OrderService) => {
-    service.connect = {
+  it('getOrdersByUser should be return order', inject([OrderService], (service: OrderService) => {
+    angularFireDatabaseSpy.list.and.returnValue({
       valueChanges() {
-        return of([{items: []}, {items: []}]);
+        return of([mockOrder]);
       }
-    };
+    });
     service.getOrdersByUser('test')
       .subscribe((val) => {
-        console.log(val);
         expect(val).toBeTruthy();
       });
   }));

@@ -25,7 +25,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
      this.manageDataService.getAllProducts()
        .pipe(takeUntil(this.onDestroy$))
       .subscribe((data: Product[]) => {
-       console.log('data product', data);
         this.filterProducts = this.products = data;
       });
   }
