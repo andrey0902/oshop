@@ -29,6 +29,8 @@
     "core-js": "^2.5.4",
     "firebase": "^5.3.1",
     "hammerjs": "^2.0.8",
+    "node-sass": "^4.12.0",
+    "node-sass-loader": "^0.1.7",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
