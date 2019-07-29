@@ -5,7 +5,11 @@ export class ShoppingCartItem {
   quantity: number;
 
   constructor(data) {
-    this.product = data.product;
+    this.product = new Product(data.product);
     this.quantity = data.quantity;
+  }
+
+  get totalPrice(): number {
+    return this.quantity * +this.product.price;
   }
 }

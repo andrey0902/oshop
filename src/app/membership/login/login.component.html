@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+      <h2 class="text-center title">Sing In</h2>
+      <button (click)="loginGoogle()"
+              mat-raised-button
+              class="w-100 login-g"
+              color="primary">SignIn with Google</button>
+      <div class="or">
+        <span class="or-text">
+          or
+        </span>
+      </div>
+      <div class="wrapper-form">
+        <div class="overlay-spinner" *ngIf="shoveSpinner">
+          <mat-spinner></mat-spinner>
+        </div>
+        <form [formGroup]="signIn" (ngSubmit)="sendSingIn()">
+          <div class="server-error"
+               *ngIf="serverError"
+          >
+            <app-error-non (clear)="serverError = null;" [form]="signIn" [errors]="serverError" [errorName]="'non_field_errors'"></app-error-non>
+          </div>
+          <div class="form-group">
+            <label for="email">Email*</label>
+            <app-input class="input-group">
+              <input type="email" appValidation formControlName="email" class="input-field" id="email" >
+              <app-input-error>
+              </app-input-error>
+            </app-input>
+          </div>
+          <div class="form-group">
+            <label for="password">Password*</label>
+            <app-input class="input-group">
+              <!--<span class=" left_ico">$</span>-->
+              <input [type]=" hidePassword? 'text' : 'password'" appValidation formControlName="password" class="input-field" id="password" >
+              <span class="right_ico">
+              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </span>
+
+              <app-input-error>
+              </app-input-error>
+            </app-input>
+          </div>
+          <div class="action">
+            <button [disabled]="signIn.invalid"
+                    type="submit"
+                    mat-raised-button
+                    class="w-100 submit"
+                    color="primary">Sign Up</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+</div>

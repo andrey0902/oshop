@@ -1,3 +1,14 @@
-<p>
-  check-out works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <h2>Shopping Order</h2>
+      <app-check-out-form (saveOrder)="placedOrder($event)">
+      </app-check-out-form>
+    </div>
+    <div class="col-12 col-md-6 ">
+      <h2 class="order-summary">Order Summary</h2>
+      <app-shopping-cart-summary *ngIf="cart" [cart]="cart"></app-shopping-cart-summary>
+    </div>
+  </div>
+</div>
+

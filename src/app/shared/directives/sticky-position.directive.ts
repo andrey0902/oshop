@@ -1,9 +1,9 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appStickyPosition]'
 })
-export class StickyPositionDirective {
+export class StickyPositionDirective implements OnInit {
 
   @Input() public startPosition: number;
   @Input() public disableWidth: number;
@@ -24,7 +24,6 @@ export class StickyPositionDirective {
   @HostListener('window:resize')
   public resize() {
     this.initialize();
-
     if (this.canDo) {
       this.reinitialization();
     }

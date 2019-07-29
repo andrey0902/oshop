@@ -1,0 +1,45 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-material">
+    <div class="first-position">
+      <a class="navbar-brand" routerLink="/">Oshop</a>
+
+      <a class="link-cart" mat-button [routerLink]="'/shopping-cart'">Shopping cart
+        <span *ngIf="countProduct"
+          [matBadge]="countProduct"
+          matBadgeOverlap="false"
+          matBadgeColor="accent"
+        ></span>
+      </a>
+    </div>
+    <div class="two-position">
+      <ng-container *ngIf="!user; else ononymousUser">
+        <ul class="nav-group">
+          <li class="nav-item" routerLinkActive="active">
+            <a class="link-anchor" mat-button  [routerLink]="'/auth/login'">Login</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="link-anchor" mat-button [routerLink]="'/auth/sign-up'">SignUp</a>
+          </li>
+        </ul>
+      </ng-container>
+
+
+      <ng-template #ononymousUser>
+        <button mat-button
+                [matMenuTriggerFor]="menu"
+                class="btn-trigger"
+        >
+          <span>{{user?.name}}</span><mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a routerLink="/my/orders" routerLinkActive="active" class="link" mat-menu-item>My orders</a>
+          <ng-container *ngIf="user?.isAdmin">
+            <a routerLink="/admin/orders" routerLinkActive="active" class="link" mat-menu-item>Manage orders</a>
+            <a routerLink="/admin/products" routerLinkActive="active" class="link" mat-menu-item>Manage products</a>
+          </ng-container>
+          <button (click)="logout()" mat-menu-item>Log out</button>
+        </mat-menu>
+      </ng-template>
+    </div>
+  </nav>
+</header>

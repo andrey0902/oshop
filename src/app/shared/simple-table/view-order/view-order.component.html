@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Products</h2>
+<mat-dialog-content>
+  <table class="table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Product</th>
+      <th class="quantity">Quantity</th>
+      <th class="price">Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of data">
+      <td>
+        <img class="thamb" [src]="item.product.imageUrl || 'assets/image/blank.jpg'" alt="img">
+      </td>
+      <td>{{item.product.title}}
+      </td>
+      <td class="td-quantity">
+        {{item.quantity}}
+      </td>
+      <td class="price">{{item.product.price * item.quantity | currency}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <th>Total Price:</th>
+      <th></th>
+      <th></th>
+      <th class="price">{{getTotalOrder() | currency}}</th>
+    </tr>
+    </tfoot>
+  </table>
+</mat-dialog-content>
+

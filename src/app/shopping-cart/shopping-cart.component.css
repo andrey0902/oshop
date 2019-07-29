@@ -1,0 +1,40 @@
+.actions {
+  display: block;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.quantity {
+  text-align: center;
+}
+
+.price {
+  text-align: right;
+  width: 200px;
+}
+
+.td-quantity, .quotient {
+  width: 250px;
+}
+
+.thamb {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+ht, td {
+  vertical-align: middle;
+}
+
+.checkout {
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+button:focus, a:focus {
+  outline: none;
+  text-decoration: none;
+}

@@ -5,7 +5,21 @@
 @import '~@swimlane/ngx-datatable/release/themes/material.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 body {
-  padding-top: 80px;
+  padding-top: 140px;
   font-family: 'Merriweather Sans', sans-serif;
+}
+
+
+/* Small devices (landscape phones, 544px and up) */
+@media (min-width: 544px) {
+  body {
+    padding-top: 80px;
+  }
+}
+
+label {
+  font-size: 14px;
+  font-weight: 400;
 }

@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ManageDataService } from '../shared/services/manage-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import {  switchMap, tap } from 'rxjs/operators';
-import { ShoppingCardService } from '../shared/services/shopping-card.service';
+import {  switchMap, tap, takeUntil } from 'rxjs/operators';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 
 @Component({
   selector: 'app-products',
@@ -17,10 +16,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
   categories$;
   selectCategory: string | null = null;
   cart;
+  canShowPage = null;
   private onDestroy$ = new Subject<boolean>();
   constructor(public productService: ManageDataService,
               private route: ActivatedRoute,
-              public shoppingService: ShoppingCardService) { }
+              public shoppingService: ShoppingCartService) { }
 
   ngOnInit() {
     this.getCategories();
@@ -47,8 +47,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
         takeUntil(this.onDestroy$)
       )
       .subscribe(params => {
-         this.selectCategory = params.get('category');
-          this.setFilter(this.selectCategory);
+        this.selectCategory = params.get('category');
+        this.filterByCategory(this.selectCategory);
+        this.canShowPage = true;
       });
   }
 
@@ -56,7 +57,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.categories$ = this.productService.getCategoryProduct();
   }
 
-  setFilter(url) {
+  filterByCategory(url) {
     this.filterProducts = url ? this.productService.filterByCategory(url, this.products) : this.products;
   }
 

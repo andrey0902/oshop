@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
-import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { User } from '../shared/models/user';
-import { skip } from 'rxjs/internal/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +27,14 @@ export class ProfileService {
 
   setUser(user: firebase.User) {
     this._user$.next(user);
-    // ToDo: need save to session storage and locale storage
   }
 
-  saveUser(user: firebase.User) {
-    this.db.object(`/users/${user.uid}`)
+  saveUser(user: firebase.User): Promise<void> {
+   return this.db.object(`/users/${user.uid}`)
       .update({
         name: user.displayName,
-        email: user.email
+        email: user.email,
+        exist: true
       });
   }
 

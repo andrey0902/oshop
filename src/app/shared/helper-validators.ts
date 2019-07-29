@@ -18,6 +18,21 @@ export class HelperValidators extends Validators {
     }
   }
 
+  public static passwordMatch2(password, password2) {
+    return (control: AbstractControl) => {
+      const pass = control.get(password).value;
+      const confirm = control.get(password2).value;
+      if (!(confirm && pass)) {
+        return null;
+      }
+
+      if (pass !== confirm) {
+       return control.get(password2).setErrors({passwordMatch: true});
+      }
+      return null;
+    };
+  }
+
   public static identicalPassword(control: AbstractControl) {
     const oldPassword = control.get('old_password').value;
     const password = control.get('password2').value;

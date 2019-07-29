@@ -1,7 +1,0 @@
-.cat {
-  display: inline-block;
-}
-
-.cat:first-letter {
-  text-transform: uppercase;
-}
